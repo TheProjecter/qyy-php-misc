@@ -50,6 +50,7 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
 // TODO: Commentaires
+// TODO: Orthographe
 // TODO: Gestion des META
 // TODO: Gestion d'ajout des CSS
 // TODO: Gestion d'ajout des scripts externe
@@ -61,7 +62,9 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 // TODO: Ajouter des toudou ^^
 
 // PITETRE: Gestion des langues fr-fr / en-en, enfin la norme là...
+
 // PITETRE: controler la validité tu mail
+// PITETRE: Controler validité des chaines (genre pas de saut de lignes...)
 
 /**
  * Charge le gabarit d'une page XHTML paramétrable
@@ -355,6 +358,50 @@ class GabaritXhtml {
 
     $this->elementHead->appendChild($this->metaAuthor);
   }
+
+  /**
+   * Ajoute la balise <meta> "keywords" contenant les mots clef facilitant
+   * l'indexation de la page. Les moteurs de recherches ne prennent que
+   * rarement en compte plus de 400 caractères, et il est préférable de ne pas
+   * dépasser 100 mots clef ainsi que d'éviter les répétitions de
+   * mots similaires.
+   * @link http://corrigesduweb.com/popups/meta-keywords.htm
+   * @param string $motsClefs <p>
+   * La chaine de mot clefs spéraré par des virgules, limité à 1000 caractères
+   * espaces compris. Pour cette raison, éviter de mettre des espaces avant et
+   * après les virgules.<br/>
+   * Les saut de lignes ne sonts pas permis, et si la chaine dépasse 1000
+   * caractères, elle sera tronqué.
+   * </p>
+   * @param string $lang <p>
+   * facultatif</p>
+   */
+  public function AjouteMetaKeywords($motsClefs, $lang=false)
+  {
+    $motsClefs = strval($motsClefs);
+
+    if(strlen($motsClefs) > 1000)
+    {
+      $motsClefs = substr($motsClefs, 0, 1000);
+    }
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $motsClefs;
+
+    $this->metaKeywords->appendChild($attrContent);
+
+    if($lang)
+    {
+      $lang = strval($lang);
+      $attrLang = $this->document->createAttribute('lang');
+      $attrLang->value = $lang;
+
+      $this->metaKeywords->appendChild($attrLang);
+    }
+
+    $this->elementHead->appendChild($this->metaKeywords);
+  }
+  // TODO: Gérer multiples meta keywords
 
   /**
    * Ajoute la balise <meta> "reply-to" informant sur l'adresse e-mail <br/>
