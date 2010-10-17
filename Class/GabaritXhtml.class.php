@@ -334,7 +334,7 @@ class GabaritXhtml {
    * Ajoute la balise <meta> "author" informant sur le ou les auteurs.
    * @link http://corrigesduweb.com/popups/meta-author.htm
    * @param string $auteurs <p>
-   * prénom en minuscules, puis nom en majuscules ('Prénom NOM').
+   * Prénom en minuscules, puis nom en majuscules ('Prénom NOM').
    * Les auteurs multiples doivent êtres séparés d'une virgule.</p>
    * @param string $lang <p>
    * facultatif</p>
@@ -361,8 +361,59 @@ class GabaritXhtml {
   }
 
   /**
-   * Ajoute la balise <meta> "identifier-url" qui sert à indiquer au moteur de
-   * recherche l'url de la porte d'entrée du site web.
+   * Ajoute la balise <meta> "expires" qui indique la date d'expiration de la
+   * page (à priori, la date à laquelle la page ne sera donc plus
+   * disponible).<br/>
+   * Si le paramètre d'expiration n'est pas renseigné, la valeur 'never' est
+   * affecté par défaut (la page n'expire jamais).
+   * @link http://corrigesduweb.com/popups/meta-expires.htm
+   * @param DateTime $expiration <p>
+   * La date d'expiration de la page. Si le format est incorecte, la valeur
+   * 'never' sera attribué par défaut.
+   * </p>
+   */
+  public function AjouteMetaExpires($expiration = 'never')
+  {
+    if(!is_object($expiration) || !is_a($expiration, 'DateTime'))
+    {
+      $expiration = 'never';
+    }
+    else
+    {
+      $expiration = strtolower($expiration->format('d F Y'));
+    }
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $expiration;
+
+    $this->metaExpires->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaExpires);
+  }
+
+  /**
+   * Ajoute la balise <meta> "generator" qui sert à indiquer le nom du logiciel
+   * qui à généré la page.
+   * @link http://corrigesduweb.com/popups/meta-generator.htm
+   * @param string $generateur <p>
+   * Le nom du générateur de la page.
+   * </p>
+   */
+  public function AjouteMetaGenerator($generateur)
+  {
+    $generateur = strval($generateur);
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $generateur;
+
+    $this->metaGenerator->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaGenerator);
+  }
+
+  /**
+   * Ajoute la balise <meta> "identifier-url" qui sert à indiquer l'url de la
+   * porte d'entrée du site web.
    * @link http://corrigesduweb.com/popups/meta-url.htm
    * @param string $site <p>
    * L'url de la porte d'entrée du site web.
