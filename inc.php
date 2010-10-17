@@ -5,7 +5,7 @@
  * code@qyy.fr
  *
  * Ce logiciel est un programme informatique servant d'exemple de code.
- * Ce logiciel à une visée purement éducative et n'est pas destiné à être
+ * Ce logiciel a une visée purement éducative et n'est pas destiné à être
  * utilisé en production.
  *
  * Ce logiciel est régi par la licence CeCILL-B soumise au droit français et
