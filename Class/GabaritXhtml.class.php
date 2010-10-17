@@ -371,6 +371,8 @@ class GabaritXhtml {
     $attrContent = $this->document->createAttribute('content');
     $attrContent->value = $email;
 
+    $this->metaReplyTo->appendChild($attrContent);
+
     $this->elementHead->appendChild($this->metaReplyTo);
   }
 
@@ -402,17 +404,9 @@ class GabaritXhtml {
     $attrContent = $this->document->createAttribute('content');
     $attrContent->value = $unite.' '.$frequence;
 
-    $this->metaAuthor->appendChild($attrContent);
+    $this->metaRevisitAfter->appendChild($attrContent);
 
-    if($lang)
-    {
-      $attrLang = $this->document->createAttribute('lang');
-      $attrLang->value = $lang;
-
-      $this->metaRevisitAfter->appendChild($attrLang);
-    }
-
-    $this->elementHead->appendChild($this->metaAuthor);
+    $this->elementHead->appendChild($this->metaRevisitAfter);
   }
 
   /**
