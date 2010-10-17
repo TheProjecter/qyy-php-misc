@@ -61,6 +61,7 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 // TODO: Ajouter des toudou ^^
 
 // PITETRE: Gestion des langues fr-fr / en-en, enfin la norme là...
+// PITETRE: controler la validité tu mail
 
 /**
  * Charge le gabarit d'une page XHTML paramétrable
@@ -199,11 +200,6 @@ class GabaritXhtml {
    */
   private $metaRobots;
 
-  public function SetMetaAuthor($name, $lang='fr')
-  {
-
-  }
-
   /**
    *
    * @param string $titre
@@ -215,6 +211,14 @@ class GabaritXhtml {
     $lang='fr-fr',
     $typeDTD = TYPE_DTD_XHTML_TRANSITIONAL)
   {
+    $titre = strval($titre);
+    $lang = strval($lang);
+
+    if($typeDTD != TYPE_DTD_XHTML_TRANSITIONAL
+    || $typeDTD != TYPE_DTD_XHTML_STRICT)
+    {
+      $typeDTD = TYPE_DTD_XHTML_TRANSITIONAL;
+    }
 
     $this->implementation = new DOMImplementation();
 
@@ -325,21 +329,24 @@ class GabaritXhtml {
   /**
    * Ajoute la balise <meta> "author" informant sur le ou les auteurs.
    * @link http://corrigesduweb.com/popups/meta-author.htm
-   * @param string $content <p>
-   * prénom en minuscules, puis nom en majuscules.
+   * @param string $auteurs <p>
+   * prénom en minuscules, puis nom en majuscules ('Prénom NOM').
    * Les auteurs multiples doivent êtres séparés d'une virgule.</p>
    * @param string $lang <p>
    * facultatif</p>
    */
-  public function AjouteMetaAuthor($content, $lang=false)
+  public function AjouteMetaAuthor($auteurs, $lang=false)
   {
+    $auteurs = strval($auteurs);
+
     $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $content;
+    $attrContent->value = $auteurs;
 
     $this->metaAuthor->appendChild($attrContent);
 
     if($lang)
     {
+      $lang = strval($lang);
       $attrLang = $this->document->createAttribute('lang');
       $attrLang->value = $lang;
 
@@ -347,6 +354,24 @@ class GabaritXhtml {
     }
 
     $this->elementHead->appendChild($this->metaAuthor);
+  }
+
+  /**
+   * Ajoute la balise <meta> "reply-to" informant sur l'adresse e-mail <br/>
+   * principale du site. Cette adresse est systématiquement collecté par les
+   * spammers
+   * @link http://corrigesduweb.com/popups/meta-reply.htm
+   * @param string $email <p>
+   * L'adresse e-mail principale du site
+   * </p>
+   */
+  public function AjouteMetaReplyTo($email)
+  {
+    $email = strval($email);
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $email;
+
+    $this->elementHead->appendChild($this->metaReplyTo);
   }
 
   /**
@@ -396,10 +421,10 @@ class GabaritXhtml {
    * Si la balise n'est pas présente, l'instruction par défaut est d'indexer la
    * page et de suivre les liens.
    * @link http://corrigesduweb.com/popups/meta-robots.htm
-   * @param bool $indexer <p>
+   * @param boolean $indexer <p>
    * true = indexer la page, false = ne pas indexer la page
    * </p>
-   * @param bool $suivre <p>
+   * @param boolean $suivre <p>
    * true = suivre les liens, false= ne pas suivre les liens
    * </p>
    */
@@ -465,7 +490,6 @@ class GabaritXhtml {
   /**
    *
    * @param string $titre
-   * @return void
    */
   public function SetTitre($titre)
   {
