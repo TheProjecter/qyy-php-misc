@@ -63,8 +63,9 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 
 // PITETRE: Gestion des langues fr-fr / en-en, enfin la norme là...
 
-// PITETRE: controler la validité tu mail
 // PITETRE: Controler validité des chaines (genre pas de saut de lignes...)
+//            url
+//            mail
 
 /**
  * Charge le gabarit d'une page XHTML paramétrable
@@ -357,6 +358,26 @@ class GabaritXhtml {
     }
 
     $this->elementHead->appendChild($this->metaAuthor);
+  }
+
+  /**
+   * Ajoute la balise <meta> "identifier-url" qui sert à indiquer au moteur de
+   * recherche l'url de la porte d'entrée du site web.
+   * @link http://corrigesduweb.com/popups/meta-url.htm
+   * @param string $site <p>
+   * L'url de la porte d'entrée du site web.
+   * </p>
+   */
+  public function AjouteMetaIdentifierUrl($url)
+  {
+    $url = strval($url);
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $url;
+
+    $this->metaIdentifierUrl->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaIdentifierUrl);
   }
 
   /**

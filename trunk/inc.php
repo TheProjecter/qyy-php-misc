@@ -39,5 +39,3 @@
 
 require_once 'Class/GabaritXhtml.class.php';
 require_once 'Class/Headers.class.php';
-
-?>
