@@ -366,8 +366,20 @@ class GabaritXhtml {
   }
 
   /**
-   * Ajoute la balise <meta> "expires" qui indique la portée de la distribution
-   * de la page. La valeur par défaut est DISTRIBUTION_GLOBAL.
+   * Ajoute la balise <meta> "description"
+   * @link http://corrigesduweb.com/popups/meta-description.htm
+   * @param <type> $description <p>
+   * x
+   * </p>
+   */
+  public function AjouteMetaDescription($description)
+  {
+    // TODO: AjouteMetaDescription (ajouter àpres titre)
+  }
+
+  /**
+   * Ajoute la balise <meta> "distribution" qui indique la portée de la
+   * distribution de la page. La valeur par défaut est DISTRIBUTION_GLOBAL.
    * @link http://corrigesduweb.com/popups/meta-distribution.htm
    * @param string $distribution <p>
    * Portée de la distribution de la page. Les choix possibles sont :<br/>
