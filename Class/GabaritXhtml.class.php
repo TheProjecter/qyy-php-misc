@@ -39,6 +39,8 @@
 
 define('TYPE_DTD_XHTML_STRICT', 'Strict');
 define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
+define('DISTRIBUTION_GLOBAL', 'global');
+define('DISTRIBUTION_LOCALE', 'local');
 
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
 // http://pointbeing.net/weblog/2009/03/adding-a-doctype-declaration-to-a-domdocument-in-php.html
@@ -49,9 +51,10 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 // DOC: SAXON - XPath Expression Syntax
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
-// TODO: Commentaires
+// PROGRESS: Commentaires
+// PROGRESS: Gestion des META
+
 // TODO: Orthographe
-// TODO: Gestion des META
 // TODO: Gestion d'ajout des CSS
 // TODO: Gestion d'ajout des scripts externe
 // TODO: Gestion d'ajout des scripts interne (CDATA...)
@@ -59,11 +62,13 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 // TODO: Gestion des retour avec les Headers (à l'aide de la class)
 // TODO: Ajout d'XML brut avec validation
 // TODO: Gérer la balise <base>
+// TODO: Gestion des exceptions
+// TODO: Aller se documenter dans les RFC pour les metas et le reste
+// TODO: Constantes de class
 // TODO: Ajouter des toudou ^^
 
-// PITETRE: Gestion des langues fr-fr / en-en, enfin la norme là...
-
-// PITETRE: Controler validité des chaines (genre pas de saut de lignes...)
+// MAYBE: Gestion des langues fr-fr / en-en, enfin la norme là...
+// MAYBE: Controler validité des chaines (genre pas de saut de lignes...)
 //            url
 //            mail
 
@@ -358,6 +363,34 @@ class GabaritXhtml {
     }
 
     $this->elementHead->appendChild($this->metaAuthor);
+  }
+
+  /**
+   * Ajoute la balise <meta> "expires" qui indique la portée de la distribution
+   * de la page. La valeur par défaut est DISTRIBUTION_GLOBAL.
+   * @link http://corrigesduweb.com/popups/meta-distribution.htm
+   * @param string $distribution <p>
+   * Portée de la distribution de la page. Les choix possibles sont :<br/>
+   * DISTRIBUTION_GLOBAL<br/>
+   * DISTRIBUTION_LOCALE<br/>
+   * Si la valeur n'est pas initialisé correctement, la valeur par défaut
+   * DISTRIBUTION_GLOBAL serat utilisé.
+   * </p>
+   */
+  public function AjouteMetaDistribution($distribution = DISTRIBUTION_GLOBAL)
+  {
+    if($distribution != DISTRIBUTION_GLOBAL
+    && $distribution != DISTRIBUTION_LOCALE)
+    {
+      $distribution = DISTRIBUTION_GLOBAL;
+    }
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $distribution;
+
+    $this->metaDistribution->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaDistribution);
   }
 
   /**
