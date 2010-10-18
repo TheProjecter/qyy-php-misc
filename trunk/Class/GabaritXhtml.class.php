@@ -52,8 +52,8 @@ define('DISTRIBUTION_LOCALE', 'local');
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
 // PROGRESS: Commentaires
-// PROGRESS: Gestion des META
 
+// TODO: Getters Setters META
 // TODO: Orthographe
 // TODO: Gestion d'ajout des CSS
 // TODO: Gestion d'ajout des scripts externe
@@ -366,11 +366,32 @@ class GabaritXhtml {
   }
 
   /**
+   * Ajoute la balise <meta> "category" qui sert à indiquer les catégories dans
+   * lesquelles rentre le site.
+   * @link http://corrigesduweb.com/popups/meta-category.htm
+   * @param string $categories <p>
+   * Liste des catégories séparées par une virgule.
+   * </p>
+   */
+  public function AjouteMetaCategory($categories)
+  {
+    $categories = strval($categories);
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $categories;
+
+    $this->metaCategory->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaCategory);
+  }
+  // MAYBE: catégorie assisté
+
+  /**
    * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
    * de rédaction du contenu de la page.
    * @link http://corrigesduweb.com/popups/meta-language.htm
    * @param string $langue <p>
-   * La langue de rédaction du contenu de la page sur deux lettres
+   * La langue de rédaction du contenu de la page sur deux lettres.
    * </p>
    */
   public function AjouteMetaContentLanguage($langue = 'fr')
