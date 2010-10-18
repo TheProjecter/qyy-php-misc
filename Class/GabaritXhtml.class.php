@@ -53,6 +53,9 @@ define('DISTRIBUTION_LOCALE', 'local');
 
 // PROGRESS: Commentaires
 
+// TODO: Gestion META : passer init méta dans ajoute respectif (controle
+// duplique...)
+// TODO: CreeMeta($attr1, $attr2); plus gestion...
 // TODO: Getters Setters META
 // TODO: Orthographe
 // TODO: Gestion d'ajout des CSS
