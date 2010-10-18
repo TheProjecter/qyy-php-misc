@@ -212,16 +212,16 @@ class GabaritXhtml {
   /**
    *
    * @param string $titre
-   * @param string $lang
+   * @param string $langue
    * @param string $typeDTD
    */
   function __construct(
     $titre,
-    $lang='fr-fr',
+    $langue='fr-fr',
     $typeDTD = TYPE_DTD_XHTML_TRANSITIONAL)
   {
     $titre = strval($titre);
-    $lang = strval($lang);
+    $langue = strval($langue);
 
     if($typeDTD != TYPE_DTD_XHTML_TRANSITIONAL
     || $typeDTD != TYPE_DTD_XHTML_STRICT)
@@ -241,7 +241,7 @@ class GabaritXhtml {
 
     $this->document = $this->implementation->createDocument('', '', $this->dtd);
 
-    $this->init($titre, $lang);
+    $this->init($titre, $langue);
     $this->initMetas();
   }
 
@@ -249,7 +249,7 @@ class GabaritXhtml {
    *
    * @param string $titre
    */
-  private function init($titre, $lang)
+  private function init($titre, $langue)
   {
     $this->elementHtml     = $this->document->createElement('html');
     $this->elementHead     = $this->document->createElement('head');
@@ -257,7 +257,7 @@ class GabaritXhtml {
     $this->elementTitle    = $this->document->createElement('title');
     $this->textTitre       = $this->document->createTextNode($titre);
     $this->attrLang        = $this->document->createAttribute('lang');
-    $this->attrLang->value = $lang;
+    $this->attrLang->value = $langue;
 
     $this->document->appendChild($this->elementHtml);
     $this->elementHtml->appendChild($this->elementHead);
@@ -341,10 +341,10 @@ class GabaritXhtml {
    * @param string $auteurs <p>
    * Prénom en minuscules, puis nom en majuscules ('Prénom NOM').
    * Les auteurs multiples doivent êtres séparés d'une virgule.</p>
-   * @param string $lang <p>
+   * @param string $langue <p>
    * facultatif</p>
    */
-  public function AjouteMetaAuthor($auteurs, $lang=false)
+  public function AjouteMetaAuthor($auteurs, $langue=false)
   {
     $auteurs = strval($auteurs);
 
@@ -353,16 +353,57 @@ class GabaritXhtml {
 
     $this->metaAuthor->appendChild($attrContent);
 
-    if($lang)
+    if($langue)
     {
-      $lang = strval($lang);
+      $langue = strval($langue);
       $attrLang = $this->document->createAttribute('lang');
-      $attrLang->value = $lang;
+      $attrLang->value = $langue;
 
       $this->metaAuthor->appendChild($attrLang);
     }
 
     $this->elementHead->appendChild($this->metaAuthor);
+  }
+
+  /**
+   * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
+   * de rédaction du contenu de la page.
+   * @link http://corrigesduweb.com/popups/meta-language.htm
+   * @param string $langue <p>
+   * La langue de rédaction du contenu de la page sur deux lettres
+   * </p>
+   */
+  public function AjouteMetaContentLanguage($langue = 'fr')
+  {
+    $langue = strval($langue);
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $langue;
+
+    $this->metaContentLanguage->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaContentLanguage);
+  }
+
+  /**
+   * Ajoute la balise <meta> "copyright" qui sert à indiquer le ou les copyright
+   * attenant au contenu de la page.
+   * @link http://corrigesduweb.com/popups/meta-copyright.htm
+   * @param string $copyright <p>
+   * Le ou les mentions de copyright. En cas de mentions multiples, les séparer
+   * par une virgule.
+   * </p>
+   */
+  public function AjouteMetaCopyright($copyright)
+  {
+    $copyright = strval($copyright);
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $copyright;
+
+    $this->metaCopyright->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaCopyright);
   }
 
   /**
@@ -567,10 +608,10 @@ class GabaritXhtml {
    * Les saut de lignes ne sonts pas permis, et si la chaine dépasse 1000
    * caractères, elle sera tronqué.
    * </p>
-   * @param string $lang <p>
+   * @param string $langue <p>
    * facultatif</p>
    */
-  public function AjouteMetaKeywords($motsClefs, $lang=false)
+  public function AjouteMetaKeywords($motsClefs, $langue=false)
   {
     $motsClefs = strval($motsClefs);
 
@@ -584,11 +625,11 @@ class GabaritXhtml {
 
     $this->metaKeywords->appendChild($attrContent);
 
-    if($lang)
+    if($langue)
     {
-      $lang = strval($lang);
+      $langue = strval($langue);
       $attrLang = $this->document->createAttribute('lang');
-      $attrLang->value = $lang;
+      $attrLang->value = $langue;
 
       $this->metaKeywords->appendChild($attrLang);
     }
@@ -740,11 +781,11 @@ class GabaritXhtml {
 
   /**
    *
-   * @param string $lang
+   * @param string $langue
    */
-  public function SetLang($lang)
+  public function SetLang($langue)
   {
-    $this->attrLang->value = $lang;
+    $this->attrLang->value = $langue;
   }
 
 }
