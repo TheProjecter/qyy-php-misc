@@ -366,6 +366,59 @@ class GabaritXhtml {
   }
 
   /**
+   * Ajoute la balise <meta> "Date-Creation-yyyymmdd" informant sur la date à
+   * laquelle la page à été créé (et non pas généré).
+   * @link http://corrigesduweb.com/popups/meta-creation.htm
+   * @param DateTime $dateCreation <p>
+   * Date de la création de la page. Si le format fournit est incorecte, le
+   * DateTime récupéré sera celui de la génération de la page ('now').
+   * </p>
+   */
+  public function AjouteMetaDateCreationYyyymmdd($dateCreation)
+  {
+    if(!is_object($dateCreation) || !is_a($dateCreation, 'DateTime'))
+    {
+      $dateCreation = new DateTime('now');
+    }
+
+    $dateCreation = $dateCreation->format('dmY');
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $dateCreation;
+
+    $this->metaDateCreationYyyymmdd->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaDateCreationYyyymmdd);
+  }
+
+  /**
+   * Ajoute la balise <meta> "Date-Revision-yyyymmdd" informant sur la date à
+   * laquelle le contenu de la page à été modifié pour la dernière fois.
+   * @link http://corrigesduweb.com/popups/meta-revision.htm
+   * @param DateTime $dateRevision <p>
+   * Date de la dernière révision (denière modification du contenu) de la page.
+   * Si le format fournit est incorecte, le DateTime récupéré sera celui de la
+   * génération de la page ('now').
+   * </p>
+   */
+  public function AjouteMetaDateRevisionYyyymmdd($dateRevision)
+  {
+    if(!is_object($dateRevision) || !is_a($dateRevision, 'DateTime'))
+    {
+      $dateRevision = new DateTime('now');
+    }
+
+    $dateRevision = $dateRevision->format('dmY');
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $dateRevision;
+
+    $this->metaDateRevisionYyyymmdd->appendChild($attrContent);
+
+    $this->elementHead->appendChild($this->metaDateRevisionYyyymmdd);
+  }
+
+  /**
    * Ajoute la balise <meta> "description" qui doit contenir une description de
    * la page (et non du site).
    * @link http://corrigesduweb.com/popups/meta-description.htm
@@ -398,7 +451,6 @@ class GabaritXhtml {
     } else {
         $this->elementTitle->parentNode->appendChild($this->metaDescription);
     }
-
   }
   // MAYBE: Améliorer les controles sur la chaine de description
 
