@@ -366,16 +366,41 @@ class GabaritXhtml {
   }
 
   /**
-   * Ajoute la balise <meta> "description"
+   * Ajoute la balise <meta> "description" qui doit contenir une description de
+   * la page (et non du site).
    * @link http://corrigesduweb.com/popups/meta-description.htm
-   * @param <type> $description <p>
-   * x
+   * @param string $description <p>
+   * La description doit faire 200 caractères maximum. Si la chaine fournie est
+   * plus longue, elle serat tronqué. Les sauts de ligne ne sont pas permit.
    * </p>
    */
   public function AjouteMetaDescription($description)
   {
-    // TODO: AjouteMetaDescription (ajouter àpres titre)
+    $description = strval($description);
+
+    if(strlen($description) > 200)
+    {
+      $description = substr($description, 0, 200);
+    }
+
+    $attrContent = $this->document->createAttribute('content');
+    $attrContent->value = $description;
+
+    $this->metaDescription->appendChild($attrContent);
+
+    // On insert la meta juste après le titre
+    // DOC: http://fr2.php.net/manual/fr/domnode.insertbefore.php#90833
+    if($this->elementTitle->nextSibling) {
+        $this->elementTitle->parentNode->insertBefore(
+          $this->metaDescription,
+          $this->elementTitle->nextSibling
+        );
+    } else {
+        $this->elementTitle->parentNode->appendChild($this->metaDescription);
+    }
+
   }
+  // MAYBE: Améliorer les controles sur la chaine de description
 
   /**
    * Ajoute la balise <meta> "distribution" qui indique la portée de la
