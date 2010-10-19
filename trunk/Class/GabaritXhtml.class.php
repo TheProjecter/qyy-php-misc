@@ -40,9 +40,6 @@
 // dépendances
 require_once 'Css2.class.php';
 
-// DOC: W3.org - CSS2 : 7 Media types
-// http://www.w3.org/TR/CSS2/media.html
-
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
 // http://pointbeing.net/weblog/2009/03/adding-a-doctype-declaration-to-a-domdocument-in-php.html
   
