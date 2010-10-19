@@ -52,6 +52,7 @@ require_once 'Css2.class.php';
 // PROGRESS: Commentaires
 // PROGRESS: Gestion d'ajout des CSS
 // PROGRESS: Gestion d'ajout des Styles
+// PROGRESS: Aller se documenter dans les RFC/W3C pour les metas et le reste
 
 // TODO: Gestion META : passer init méta dans ajoute respectif (controle
 // duplique...)
@@ -64,8 +65,6 @@ require_once 'Css2.class.php';
 // TODO: Ajout d'XML brut avec validation
 // TODO: Gérer la balise <base>
 // TODO: Gestion des exceptions
-// TODO: Aller se documenter dans les RFC pour les metas et le reste
-// TODO: Constantes de class
 // TODO: Ajouter des toudou ^^
 
 // MAYBE: Gestion des langues fr-fr / en-en, enfin la norme là...
@@ -380,6 +379,7 @@ class GabaritXhtml
    * @param string $categories <p>
    * Liste des catégories séparées par une virgule.
    * </p>
+   * @todo catégories assisté
    */
   public function AjouteMetaCategory($categories)
   {
@@ -392,7 +392,6 @@ class GabaritXhtml
 
     $this->elementHead->appendChild($this->metaCategory);
   }
-  // MAYBE: catégorie assisté
 
   /**
    * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
@@ -496,6 +495,7 @@ class GabaritXhtml
    * La description doit faire 200 caractères maximum. Si la chaine fournie est
    * plus longue, elle serat tronqué. Les sauts de ligne ne sont pas permit.
    * </p>
+   * @todo Améliorer les controles sur la chaine de description
    */
   public function AjouteMetaDescription($description)
   {
@@ -522,7 +522,6 @@ class GabaritXhtml
         $this->elementTitle->parentNode->appendChild($this->metaDescription);
     }
   }
-  // MAYBE: Améliorer les controles sur la chaine de description
 
   /**
    * Ajoute la balise <meta> "distribution" qui indique la portée de la
@@ -639,6 +638,7 @@ class GabaritXhtml
    * </p>
    * @param string $langue <p>
    * facultatif</p>
+   * @todo Gérer multiples meta keywords
    */
   public function AjouteMetaKeywords($motsClefs, $langue=false)
   {
@@ -665,7 +665,6 @@ class GabaritXhtml
 
     $this->elementHead->appendChild($this->metaKeywords);
   }
-  // TODO: Gérer multiples meta keywords
 
   /**
    * Ajoute la balise <meta> "reply-to" informant sur l'adresse e-mail <br/>
