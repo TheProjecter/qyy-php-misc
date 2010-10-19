@@ -37,79 +37,8 @@
  * termes.
  */
 
-define('TYPE_DTD_XHTML_STRICT', 'Strict');
-define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
-define('DISTRIBUTION_GLOBAL', 'global');
-define('DISTRIBUTION_LOCALE', 'local');
-
-// types de médias
-
-/**
- * Convient à tout les appareils.
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_ALL', 'all');
-/**
- * Destiné aux appareils braille à retour tactile.
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_BRAILLE', 'braille');
-/**
- * Destiné à l'impression braille.
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_EMBOSSED', 'embossed');
-/**
- * Destiné aux appareils portatifs (petit écran, bande passante limitée...).
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_HANDHELD', 'handheld');
-/**
- * Destiné aux médias paginée et pour les documents affichés à l'écran en mode
- * aperçu avant impression. Consulter la section sur les médias paginés pour
- * informations sur leurs spécificités.
- * @link http://www.w3.org/TR/CSS2/media.html
- * @link http://www.w3.org/TR/CSS2/page.html
- */
-define('MEDIA_PRINT', 'print');
-/**
- * Destiné aux présentations projetées, par exemple avec des vidéo-projecteurs.
- * Consulter la section sur les médias paginés pour informations sur leurs
- * spécificités.
- * @link http://www.w3.org/TR/CSS2/media.html
- * @link http://www.w3.org/TR/CSS2/page.html
- */
-define('MEDIA_PROJECTION', 'projection');
-/**
- * Destiné principalement aux écrans couleur d'ordinateur.
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_SCREEN', 'screen');
-/**
- * Destiné à des synthétiseurs vocaux. Note: CSS2 avait un type de média dénommé
- * 'aural' à cette fin. Voir l'annexe sur les feuilles de style auditives pour
- * plus de détails.
- * @link http://www.w3.org/TR/CSS2/media.html
- * @link http://www.w3.org/TR/CSS2/aural.html
- */
-define('MEDIA_SPEECH', 'speech');
-/**
- * Destiné aux médias utilisant une grille de caractères fixe (tels que
- * télétypes, les terminaux, les consoles unix, ou des appareils portables aux
- * capacités d'affichage limitées). Les unités en pixel ne devraient pas êtres
- * utilisées avec ce type de média.
- * @link http://www.w3.org/TR/CSS2/media.html
- * @link http://www.w3.org/TR/CSS2/syndata.html#pixel-units
- */
-define('MEDIA_TTY', 'tty');
-/**
- * Destiné aux appareils du type télévision (basse résolution, couleur et
- * possibilité de défillement limitée, sons disponibles).
- * @link http://www.w3.org/TR/CSS2/media.html
- */
-define('MEDIA_TV', 'tv');
-
-
+// dépendances
+require_once 'Css2.class.php';
 
 // DOC: W3.org - CSS2 : 7 Media types
 // http://www.w3.org/TR/CSS2/media.html
@@ -152,7 +81,14 @@ define('MEDIA_TV', 'tv');
  *
  * @author Qyy
  */
-class GabaritXhtml {
+class GabaritXhtml
+{
+
+  const TYPE_DTD_XHTML_STRICT = 'Strict';
+  const TYPE_DTD_XHTML_TRANSITIONAL = 'Transitional';
+
+  const DISTRIBUTION_GLOBAL = 'global';
+  const DISTRIBUTION_LOCALE = 'local';
 
   /**
    *
@@ -293,15 +229,15 @@ class GabaritXhtml {
   function __construct(
     $titre,
     $langue='fr-fr',
-    $typeDTD = TYPE_DTD_XHTML_TRANSITIONAL)
+    $typeDTD = GabaritXhtml::TYPE_DTD_XHTML_TRANSITIONAL)
   {
     $titre = strval($titre);
     $langue = strval($langue);
 
-    if($typeDTD != TYPE_DTD_XHTML_TRANSITIONAL
-    || $typeDTD != TYPE_DTD_XHTML_STRICT)
+    if($typeDTD != $this::TYPE_DTD_XHTML_TRANSITIONAL
+    || $typeDTD != $this::TYPE_DTD_XHTML_STRICT)
     {
-      $typeDTD = TYPE_DTD_XHTML_TRANSITIONAL;
+      $typeDTD = $this::TYPE_DTD_XHTML_TRANSITIONAL;
     }
 
     $this->implementation = new DOMImplementation();
@@ -603,12 +539,12 @@ class GabaritXhtml {
    * DISTRIBUTION_GLOBAL serat utilisé.
    * </p>
    */
-  public function AjouteMetaDistribution($distribution = DISTRIBUTION_GLOBAL)
+  public function AjouteMetaDistribution($distribution = GabaritXhtml::DISTRIBUTION_GLOBAL)
   {
-    if($distribution != DISTRIBUTION_GLOBAL
-    && $distribution != DISTRIBUTION_LOCALE)
+    if($distribution != $this::DISTRIBUTION_GLOBAL
+    && $distribution != $this::DISTRIBUTION_LOCALE)
     {
-      $distribution = DISTRIBUTION_GLOBAL;
+      $distribution = $this::DISTRIBUTION_GLOBAL;
     }
 
     $attrContent = $this->document->createAttribute('content');
