@@ -42,6 +42,78 @@ define('TYPE_DTD_XHTML_TRANSITIONAL', 'Transitional');
 define('DISTRIBUTION_GLOBAL', 'global');
 define('DISTRIBUTION_LOCALE', 'local');
 
+// types de médias
+
+/**
+ * Convient à tout les appareils.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_ALL', 'all');
+/**
+ * Destiné aux appareils braille à retour tactile.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_BRAILLE', 'braille');
+/**
+ * Destiné à l'impression braille.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_EMBOSSED', 'embossed');
+/**
+ * Destiné aux appareils portatifs (petit écran, bande passante limitée...).
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_HANDHELD', 'handheld');
+/**
+ * Destiné aux médias paginée et pour les documents affichés à l'écran en mode
+ * aperçu avant impression. Consulter la section sur les médias paginés pour
+ * informations sur leurs spécificités.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ * @link http://www.w3.org/TR/CSS2/page.html
+ */
+define('MEDIA_PRINT', 'print');
+/**
+ * Destiné aux présentations projetées, par exemple avec des vidéo-projecteurs.
+ * Consulter la section sur les médias paginés pour informations sur leurs
+ * spécificités.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ * @link http://www.w3.org/TR/CSS2/page.html
+ */
+define('MEDIA_PROJECTION', 'projection');
+/**
+ * Destiné principalement aux écrans couleur d'ordinateur.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_SCREEN', 'screen');
+/**
+ * Destiné à des synthétiseurs vocaux. Note: CSS2 avait un type de média dénommé
+ * 'aural' à cette fin. Voir l'annexe sur les feuilles de style auditives pour
+ * plus de détails.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ * @link http://www.w3.org/TR/CSS2/aural.html
+ */
+define('MEDIA_SPEECH', 'speech');
+/**
+ * Destiné aux médias utilisant une grille de caractères fixe (tels que
+ * télétypes, les terminaux, les consoles unix, ou des appareils portables aux
+ * capacités d'affichage limitées). Les unités en pixel ne devraient pas êtres
+ * utilisées avec ce type de média.
+ * @link http://www.w3.org/TR/CSS2/media.html
+ * @link http://www.w3.org/TR/CSS2/syndata.html#pixel-units
+ */
+define('MEDIA_TTY', 'tty');
+/**
+ * Destiné aux appareils du type télévision (basse résolution, couleur et
+ * possibilité de défillement limitée, sons disponibles).
+ * @link http://www.w3.org/TR/CSS2/media.html
+ */
+define('MEDIA_TV', 'tv');
+
+
+
+// DOC: W3.org - CSS2 : 7 Media types
+// http://www.w3.org/TR/CSS2/media.html
+
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
 // http://pointbeing.net/weblog/2009/03/adding-a-doctype-declaration-to-a-domdocument-in-php.html
   
@@ -52,16 +124,16 @@ define('DISTRIBUTION_LOCALE', 'local');
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
 // PROGRESS: Commentaires
+// PROGRESS: Gestion d'ajout des CSS
+// PROGRESS: Gestion d'ajout des Styles
 
 // TODO: Gestion META : passer init méta dans ajoute respectif (controle
 // duplique...)
 // TODO: CreeMeta($attr1, $attr2); plus gestion...
 // TODO: Getters Setters META
 // TODO: Orthographe
-// TODO: Gestion d'ajout des CSS
 // TODO: Gestion d'ajout des scripts externe
 // TODO: Gestion d'ajout des scripts interne (CDATA...)
-// TODO: Gestion d'ajout des Styles
 // TODO: Gestion des retour avec les Headers (à l'aide de la class)
 // TODO: Ajout d'XML brut avec validation
 // TODO: Gérer la balise <base>
