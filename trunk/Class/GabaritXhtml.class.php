@@ -39,6 +39,7 @@
 
 // dépendances
 require_once 'Css2.class.php';
+require_once 'XhtmlTransitional.class.php';
 
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
 // http://pointbeing.net/weblog/2009/03/adding-a-doctype-declaration-to-a-domdocument-in-php.html
@@ -140,76 +141,92 @@ class GabaritXhtml
    */
   private $attrLang;
 
+  /// Métas \\\
+
   /**
    *
    * @var DOMElement
    */
   private $metaAuthor;
+
   /**
    *
    * @var DOMElement
    */
   private $metaCategory;
+
   /**
    *
    * @var DOMElement
    */
   private $metaContentLanguage;
+
   /**
    *
    * @var DOMElement
    */
   private $metaCopyright;
+
   /**
    *
    * @var DOMElement
    */
   private $metaDateCreationYyyymmdd;
+
   /**
    *
    * @var DOMElement
    */
   private $metaDateRevisionYyyymmdd;
+
   /**
    *
    * @var DOMElement
    */
   private $metaDescription;
+
   /**
    *
    * @var DOMElement
    */
   private $metaDistribution;
+
   /**
    *
    * @var DOMElement
    */
   private $metaExpires;
+
   /**
    *
    * @var DOMElement
    */
   private $metaGenerator;
+
   /**
    *
    * @var DOMElement
    */
   private $metaIdentifierUrl;
+
   /**
    *
    * @var DOMElement
    */
   private $metaKeywords;
+
   /**
    *
    * @var DOMElement
    */
   private $metaReplyTo;
+
   /**
    *
    * @var DOMElement
    */
   private $metaRevisitAfter;
+
   /**
    *
    * @var DOMElement
@@ -535,7 +552,8 @@ class GabaritXhtml
    * DISTRIBUTION_GLOBAL serat utilisé.
    * </p>
    */
-  public function AjouteMetaDistribution($distribution = GabaritXhtml::DISTRIBUTION_GLOBAL)
+  public function AjouteMetaDistribution(
+    $distribution = GabaritXhtml::DISTRIBUTION_GLOBAL)
   {
     if($distribution != $this::DISTRIBUTION_GLOBAL
     && $distribution != $this::DISTRIBUTION_LOCALE)
