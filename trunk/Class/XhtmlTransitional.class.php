@@ -81,8 +81,8 @@ class XhtmlTransitional {
    * @param string $scheme <p>
    * CDATA implicite.
    * </p>
-   * @param string $id ID <p>
-   * Implicite.
+   * @param string $id <p>
+   * ID implicite.
    * </p>
    * @param string $i18nLang <p>
    * Internationalisation : Sens de l'écriture<br/>
