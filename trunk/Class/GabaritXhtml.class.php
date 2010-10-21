@@ -530,13 +530,16 @@ class GabaritXhtml
 
     // On insert la meta juste après le titre
     // DOC: http://fr2.php.net/manual/fr/domnode.insertbefore.php#90833
-    if($this->elementTitle->nextSibling) {
-        $this->elementTitle->parentNode->insertBefore(
-          $this->metaDescription,
-          $this->elementTitle->nextSibling
-        );
-    } else {
-        $this->elementTitle->parentNode->appendChild($this->metaDescription);
+    if($this->elementTitle->nextSibling)
+    {
+      $this->elementTitle->parentNode->insertBefore(
+        $this->metaDescription,
+        $this->elementTitle->nextSibling
+      );
+    }
+    else
+    {
+      $this->elementTitle->parentNode->appendChild($this->metaDescription);
     }
   }
 
