@@ -54,11 +54,10 @@ require_once 'XhtmlTransitional.class.php';
 // PROGRESS: Gestion d'ajout des CSS
 // PROGRESS: Gestion d'ajout des Styles
 // PROGRESS: Aller se documenter dans les RFC/W3C pour les metas et le reste
-
-// TODO: Gestion META : passer init méta dans ajoute respectif (controle
+// PROGRESS: Gestion META : passer init méta dans ajoute respectif (controle
 // duplique...)
-// TODO: CreeMeta($attr1, $attr2); plus gestion...
-// TODO: Getters Setters META
+
+
 // TODO: Orthographe
 // TODO: Gestion d'ajout des scripts externe
 // TODO: Gestion d'ajout des scripts interne (CDATA...)
@@ -78,7 +77,7 @@ require_once 'XhtmlTransitional.class.php';
  *
  * @author Qyy
  */
-class GabaritXhtml
+class GabaritXhtmlTransitional
 {
 
   const TYPE_DTD_XHTML_STRICT = 'Strict';
@@ -141,122 +140,31 @@ class GabaritXhtml
    */
   private $attrLang;
 
-  /// Métas \\\
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaAuthor;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaCategory;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaContentLanguage;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaCopyright;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaDateCreationYyyymmdd;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaDateRevisionYyyymmdd;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaDescription;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaDistribution;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaExpires;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaGenerator;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaIdentifierUrl;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaKeywords;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaReplyTo;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaRevisitAfter;
-
-  /**
-   *
-   * @var DOMElement
-   */
-  private $metaRobots;
-
   /**
    *
    * @param string $titre
    * @param string $langue
-   * @param string $typeDTD
    */
   function __construct(
     $titre,
-    $langue='fr-fr',
-    $typeDTD = GabaritXhtml::TYPE_DTD_XHTML_TRANSITIONAL)
+    $langue='fr-fr')
+    //$typeDTD = GabaritXhtml::TYPE_DTD_XHTML_TRANSITIONAL)
   {
     $titre = strval($titre);
     $langue = strval($langue);
 
-    if($typeDTD != $this::TYPE_DTD_XHTML_TRANSITIONAL
-    || $typeDTD != $this::TYPE_DTD_XHTML_STRICT)
-    {
-      $typeDTD = $this::TYPE_DTD_XHTML_TRANSITIONAL;
-    }
+//    if($typeDTD != $this::TYPE_DTD_XHTML_TRANSITIONAL
+//    || $typeDTD != $this::TYPE_DTD_XHTML_STRICT)
+//    {
+//      $typeDTD = $this::TYPE_DTD_XHTML_TRANSITIONAL;
+//    }
+    $typeDTD = $this::TYPE_DTD_XHTML_TRANSITIONAL;
 
     $this->implementation = new DOMImplementation();
 
     $this->dtd =
-      $this->implementation->createDocumentType(
+      $this->implementation->createDocumentType
+      (
         'html',                                     // qualifiedName
         '-//W3C//DTD XHTML 1.0 '.$typeDTD.'//EN',   // publicId
         'http://www.w3.org/TR/xhtml1/DTD/xhtml1-'
@@ -266,7 +174,6 @@ class GabaritXhtml
     $this->document = $this->implementation->createDocument('', '', $this->dtd);
 
     $this->init($titre, $langue);
-    $this->initMetas();
   }
 
   /**
@@ -292,173 +199,142 @@ class GabaritXhtml
   }
 
   /**
-   *
-   */
-  private function initMetas()
-  {
-    $this->metaAuthor               = $this->document->createElement('meta');
-    $this->metaCategory             = $this->document->createElement('meta');
-    $this->metaContentLanguage      = $this->document->createElement('meta');
-    $this->metaCopyright            = $this->document->createElement('meta');
-    $this->metaDateCreationYyyymmdd = $this->document->createElement('meta');
-    $this->metaDateRevisionYyyymmdd = $this->document->createElement('meta');
-    $this->metaDescription          = $this->document->createElement('meta');
-    $this->metaDistribution         = $this->document->createElement('meta');
-    $this->metaExpires              = $this->document->createElement('meta');
-    $this->metaGenerator            = $this->document->createElement('meta');
-    $this->metaIdentifierUrl        = $this->document->createElement('meta');
-    $this->metaKeywords             = $this->document->createElement('meta');
-    $this->metaReplyTo              = $this->document->createElement('meta');
-    $this->metaRevisitAfter         = $this->document->createElement('meta');
-    $this->metaRobots               = $this->document->createElement('meta');
-
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'author';
-    $this->metaAuthor->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'category';
-    $this->metaCategory->appendChild($attr);
-    $attr = $this->document->createAttribute('http-equiv');
-    $attr->value = 'Content-Language';
-    $this->metaContentLanguage->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'copyright';
-    $this->metaCopyright->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'Date-Creation-yyyymmdd';
-    $this->metaDateCreationYyyymmdd->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'Date-Revision-yyyymmdd';
-    $this->metaDateRevisionYyyymmdd->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'description';
-    $this->metaDescription->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'distribution';
-    $this->metaDistribution->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'expires';
-    $this->metaExpires->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'generator';
-    $this->metaGenerator->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'identifier-url';
-    $this->metaIdentifierUrl->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'keywords';
-    $this->metaKeywords->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'reply-to';
-    $this->metaReplyTo->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'revisit-after';
-    $this->metaRevisitAfter->appendChild($attr);
-    $attr = $this->document->createAttribute('name');
-    $attr->value = 'robots';
-    $this->metaRobots->appendChild($attr);
-  }
-
-  /**
-   * Ajoute la balise <meta> "author" informant sur le ou les auteurs.
+   * Crée une balise "meta" "author" informant sur le ou les auteurs, l'ajoute
+   * dans l'entête du gabarit et la retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-author.htm
    * @param string $auteurs <p>
    * Prénom en minuscules, puis nom en majuscules ('Prénom NOM').
-   * Les auteurs multiples doivent êtres séparés d'une virgule.</p>
-   * @param string $langue <p>
-   * facultatif</p>
+   * Les auteurs multiples doivent êtres séparés d'une virgule.
+   * </p>
+   * @param string $i18nLang <p>
+   * Internationalisation : le code language comme définit dans la [RFC 3066]
+   * </p>
+   * @param string $i18nDir <p>
+   * Internationalisation : Sens de l'écriture<br/>
+   * 'ltr' : de gauche à droite<br/>
+   * 'rtl' : de droite à gauche<br/>
+   * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
-  public function AjouteMetaAuthor($auteurs, $langue=false)
+  public function AjouteMetaAuthor($auteurs, $i18nLang=null, $i18nDir=null)
   {
     $auteurs = strval($auteurs);
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $auteurs;
-
-    $this->metaAuthor->appendChild($attrContent);
-
-    if($langue)
+    if(!is_null($i18nLang))
     {
-      $langue = strval($langue);
-      $attrLang = $this->document->createAttribute('lang');
-      $attrLang->value = $langue;
-
-      $this->metaAuthor->appendChild($attrLang);
+      $i18nLang = strval($i18nLang);
     }
 
-    $this->elementHead->appendChild($this->metaAuthor);
+    if(!is_null($i18nDir))
+    {
+      $i18nDir = strval($i18nDir);
+    }
+
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $auteurs,        // content
+      'author',        // name
+      null,            // http-equiv
+      $i18nLang,       // lang
+      $i18nDir         // dir
+    );
+
+    $this->elementHead->appendChild($meta);
+
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "category" qui sert à indiquer les catégories dans
-   * lesquelles rentre le site.
+   * Crée une balise "meta" "category" qui sert à indiquer les catégories dans
+   * lesquelles rentre le site, l'ajoute dans l'entête du gabarit et la retourne
+   * sous forme de DOMElement.
+   * @todo catégories assisté
    * @link http://corrigesduweb.com/popups/meta-category.htm
    * @param string $categories <p>
    * Liste des catégories séparées par une virgule.
    * </p>
-   * @todo catégories assisté
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaCategory($categories)
   {
     $categories = strval($categories);
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $categories;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $categories,     // content
+      'category'       // name
+    );
 
-    $this->metaCategory->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaCategory);
+    return $meta;
   }
 
+// TODO: meta 'http-equiv' généré auto. par rapport header http
+//
+//  /**
+//   * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
+//   * de rédaction du contenu de la page.
+//   * @link http://corrigesduweb.com/popups/meta-language.htm
+//   * @param string $langue <p>
+//   * La langue de rédaction du contenu de la page sur deux lettres.
+//   * </p>
+//   */
+//  public function AjouteMetaContentLanguage($langue = 'fr')
+//  {
+//    $langue = strval($langue);
+//
+//    $attrContent = $this->document->createAttribute('content');
+//    $attrContent->value = $langue;
+//
+//    $this->metaContentLanguage->appendChild($attrContent);
+//
+//    $this->elementHead->appendChild($this->metaContentLanguage);
+//  }
+
   /**
-   * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
-   * de rédaction du contenu de la page.
-   * @link http://corrigesduweb.com/popups/meta-language.htm
-   * @param string $langue <p>
-   * La langue de rédaction du contenu de la page sur deux lettres.
-   * </p>
-   */
-  public function AjouteMetaContentLanguage($langue = 'fr')
-  {
-    $langue = strval($langue);
-
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $langue;
-
-    $this->metaContentLanguage->appendChild($attrContent);
-
-    $this->elementHead->appendChild($this->metaContentLanguage);
-  }
-
-  /**
-   * Ajoute la balise <meta> "copyright" qui sert à indiquer le ou les copyright
-   * attenant au contenu de la page.
+   * Crée une balise "meta" "copyright" qui sert à indiquer le ou les copyright
+   * attenant au contenu de la page, l'ajoute dans l'entête du gabarit et la
+   * retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-copyright.htm
    * @param string $copyright <p>
    * Le ou les mentions de copyright. En cas de mentions multiples, les séparer
    * par une virgule.
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaCopyright($copyright)
   {
     $copyright = strval($copyright);
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $copyright;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $copyright,      // content
+      'copyright'      // name
+    );
 
-    $this->metaCopyright->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaCopyright);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "Date-Creation-yyyymmdd" informant sur la date à
-   * laquelle la page à été créé (et non pas généré).
+   * Crée un balise "meta" "Date-Creation-yyyymmdd" informant sur la date à
+   * laquelle la page a été créé (et non pas généré), l'ajoute dans l'entête du
+   * gabarit et la retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-creation.htm
    * @param DateTime $dateCreation <p>
    * Date de la création de la page. Si le format fournit est incorecte, le
    * DateTime récupéré sera celui de la génération de la page ('now').
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaDateCreationYyyymmdd($dateCreation)
   {
@@ -469,23 +345,30 @@ class GabaritXhtml
 
     $dateCreation = $dateCreation->format('dmY');
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $dateCreation;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document,         // DOMDocument
+      $dateCreation,           // content
+      'Date-Creation-yyyymmdd' // name
+    );
 
-    $this->metaDateCreationYyyymmdd->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaDateCreationYyyymmdd);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "Date-Revision-yyyymmdd" informant sur la date à
-   * laquelle le contenu de la page à été modifié pour la dernière fois.
+   * Crée une balise "meta" "Date-Revision-yyyymmdd" informant sur la date à
+   * laquelle le contenu de la page a été modifié pour la dernière fois,
+   * l'ajoute dans l'entête du gabarit et la retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-revision.htm
    * @param DateTime $dateRevision <p>
    * Date de la dernière révision (denière modification du contenu) de la page.
    * Si le format fournit est incorecte, le DateTime récupéré sera celui de la
    * génération de la page ('now').
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaDateRevisionYyyymmdd($dateRevision)
   {
@@ -496,23 +379,31 @@ class GabaritXhtml
 
     $dateRevision = $dateRevision->format('dmY');
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $dateRevision;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document,         // DOMDocument
+      $dateRevision,           // content
+      'Date-Revision-yyyymmdd' // name
+    );
 
-    $this->metaDateRevisionYyyymmdd->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaDateRevisionYyyymmdd);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "description" qui doit contenir une description de
-   * la page (et non du site).
+   * Crée une balise "meta" "description" qui doit contenir une description de
+   * la page (et non du site), l'ajoute dans l'entête du gabarit juste après la
+   * balise "title" et la retourne sous forme de DOMElement.
+   * @todo Améliorer les tests sur la chaine de description
+   * @todo Vérifier si y'a pas une question de i18n sur la description
    * @link http://corrigesduweb.com/popups/meta-description.htm
    * @param string $description <p>
    * La description doit faire 200 caractères maximum. Si la chaine fournie est
    * plus longue, elle serat tronqué. Les sauts de ligne ne sont pas permit.
    * </p>
-   * @todo Améliorer les controles sur la chaine de description
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaDescription($description)
   {
@@ -523,59 +414,72 @@ class GabaritXhtml
       $description = substr($description, 0, 200);
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $description;
-
-    $this->metaDescription->appendChild($attrContent);
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $description,    // content
+      'description'    // name
+    );
 
     // On insert la meta juste après le titre
     // DOC: http://fr2.php.net/manual/fr/domnode.insertbefore.php#90833
     if($this->elementTitle->nextSibling)
     {
       $this->elementTitle->parentNode->insertBefore(
-        $this->metaDescription,
+        $meta,
         $this->elementTitle->nextSibling
       );
     }
     else
     {
-      $this->elementTitle->parentNode->appendChild($this->metaDescription);
+      $this->elementTitle->parentNode->appendChild($meta);
     }
+
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "distribution" qui indique la portée de la
-   * distribution de la page. La valeur par défaut est DISTRIBUTION_GLOBAL.
+   * Crée une balise "meta" "distribution" qui indique la portée de la
+   * distribution de la page, l'ajoute dans l'entête du gabarit et la retourne
+   * sous forme de DOMElement.<br/>
+   * La valeur par défaut est GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL.
    * @link http://corrigesduweb.com/popups/meta-distribution.htm
    * @param string $distribution <p>
    * Portée de la distribution de la page. Les choix possibles sont :<br/>
-   * DISTRIBUTION_GLOBAL<br/>
-   * DISTRIBUTION_LOCALE<br/>
+   * GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL<br/>
+   * GabaritXhtmlTransitional::DISTRIBUTION_LOCALE<br/>
    * Si la valeur n'est pas initialisé correctement, la valeur par défaut
-   * DISTRIBUTION_GLOBAL serat utilisé.
+   * GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL serat utilisé.
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaDistribution(
-    $distribution = GabaritXhtml::DISTRIBUTION_GLOBAL)
+    $distribution = GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL)
   {
-    if($distribution != $this::DISTRIBUTION_GLOBAL
-    && $distribution != $this::DISTRIBUTION_LOCALE)
+    if($distribution != GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL
+    && $distribution != GabaritXhtmlTransitional::DISTRIBUTION_LOCALE)
     {
-      $distribution = $this::DISTRIBUTION_GLOBAL;
+      $distribution = GabaritXhtmlTransitional::DISTRIBUTION_GLOBAL;
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $distribution;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $distribution,   // content
+      'distribution'   // name
+    );
 
-    $this->metaDistribution->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaDistribution);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "expires" qui indique la date d'expiration de la
+   * Crée une balise "meta" "expires" qui indique la date d'expiration de la
    * page (à priori, la date à laquelle la page ne sera donc plus
-   * disponible).<br/>
+   * disponible), l'ajoute dans l'entête du gabarit et la retourne
+   * sous forme de DOMElement.<br/>
    * Si le paramètre d'expiration n'est pas renseigné, la valeur 'never' est
    * affecté par défaut (la page n'expire jamais).
    * @link http://corrigesduweb.com/popups/meta-expires.htm
@@ -583,6 +487,8 @@ class GabaritXhtml
    * La date d'expiration de la page. Si le format est incorecte, la valeur
    * 'never' sera attribué par défaut.
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaExpires($expiration = 'never')
   {
@@ -595,60 +501,79 @@ class GabaritXhtml
       $expiration = strtolower($expiration->format('d F Y'));
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $expiration;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $expiration,     // content
+      'expires'        // name
+    );
 
-    $this->metaExpires->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaExpires);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "generator" qui sert à indiquer le nom du logiciel
-   * qui à généré la page.
+   * Crée une balise "meta" "generator" qui sert à indiquer le nom du logiciel
+   * qui à généré la page, l'ajoute dans l'entête du gabarit et la retourne
+   * sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-generator.htm
    * @param string $generateur <p>
    * Le nom du générateur de la page.
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaGenerator($generateur)
   {
     $generateur = strval($generateur);
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $generateur;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $generateur,     // content
+      'generator'      // name
+    );
 
-    $this->metaGenerator->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaGenerator);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "identifier-url" qui sert à indiquer l'url de la
-   * porte d'entrée du site web.
+   * Crée une balise "meta" "identifier-url" qui sert à indiquer l'url de la
+   * porte d'entrée du site web, l'ajoute dans l'entête du gabarit et la
+   * retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-url.htm
    * @param string $site <p>
    * L'url de la porte d'entrée du site web.
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaIdentifierUrl($url)
   {
     $url = strval($url);
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $url;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $url,            // content
+      'identifier-url' // name
+    );
 
-    $this->metaIdentifierUrl->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaIdentifierUrl);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "keywords" contenant les mots clef facilitant
-   * l'indexation de la page. Les moteurs de recherches ne prennent que
-   * rarement en compte plus de 400 caractères, et il est préférable de ne pas
-   * dépasser 100 mots clef ainsi que d'éviter les répétitions de
-   * mots similaires.
+   * Crée une balise "meta" "keywords" contenant les mots clef facilitant
+   * l'indexation de la page, l'ajoute dans l'entête du gabarit et la
+   * retourne sous forme de DOMElement.<br/>
+   * Les moteurs de recherche ne prennent que rarement en compte plus de 400
+   * caractères, et il est préférable de ne pas dépasser 100 mots clef ainsi que
+   * d'éviter les répétitions de mots similaires.
    * @link http://corrigesduweb.com/popups/meta-keywords.htm
    * @param string $motsClefs <p>
    * La chaine de mot clefs spéraré par des virgules, limité à 1000 caractères
@@ -657,11 +582,18 @@ class GabaritXhtml
    * Les saut de lignes ne sonts pas permis, et si la chaine dépasse 1000
    * caractères, elle sera tronqué.
    * </p>
-   * @param string $langue <p>
-   * facultatif</p>
-   * @todo Gérer multiples meta keywords
+   * @param string $i18nLang <p>
+   * Internationalisation : le code language comme définit dans la [RFC 3066]
+   * </p>
+   * @param string $i18nDir <p>
+   * Internationalisation : Sens de l'écriture<br/>
+   * 'ltr' : de gauche à droite<br/>
+   * 'rtl' : de droite à gauche<br/>
+   * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
-  public function AjouteMetaKeywords($motsClefs, $langue=false)
+  public function AjouteMetaKeywords($motsClefs, $i18nLang=null, $i18nDir=null)
   {
     $motsClefs = strval($motsClefs);
 
@@ -670,54 +602,75 @@ class GabaritXhtml
       $motsClefs = substr($motsClefs, 0, 1000);
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $motsClefs;
-
-    $this->metaKeywords->appendChild($attrContent);
-
-    if($langue)
+    if(!is_null($i18nLang))
     {
-      $langue = strval($langue);
-      $attrLang = $this->document->createAttribute('lang');
-      $attrLang->value = $langue;
-
-      $this->metaKeywords->appendChild($attrLang);
+      $i18nLang = strval($i18nLang);
     }
 
-    $this->elementHead->appendChild($this->metaKeywords);
+    if(!is_null($i18nDir))
+    {
+      $i18nDir = strval($i18nDir);
+    }
+
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $motsClefs,      // content
+      'keywords',      // name
+      null,            // http-equiv
+      $i18nLang,       // lang
+      $i18nDir         // dir
+    );
+
+    $this->elementHead->appendChild($meta);
+
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "reply-to" informant sur l'adresse e-mail <br/>
-   * principale du site. Cette adresse est systématiquement collecté par les
-   * spammers
+   * Crée une balise "meta" "reply-to" informant sur l'adresse e-mail principale
+   * du site, l'ajoute dans l'entête du gabarit et la retourne sous forme de
+   * DOMElement.<br/>
+   * Cette adresse est systématiquement collecté par les spammers.
    * @link http://corrigesduweb.com/popups/meta-reply.htm
    * @param string $email <p>
    * L'adresse e-mail principale du site
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaReplyTo($email)
   {
     $email = strval($email);
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $email;
 
-    $this->metaReplyTo->appendChild($attrContent);
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document, // DOMDocument
+      $email,          // content
+      'reply-to'       // name
+    );
 
-    $this->elementHead->appendChild($this->metaReplyTo);
+    $this->elementHead->appendChild($meta);
+
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "revisit-after" informant la fréquence<br/>
-   * à laquelle les moteurs de recherches doivent revisiter le site.
+   * Crée une balise "meta" "revisit-after" informant la fréquence à laquelle
+   * les moteurs de recherche doivent revisiter le site, l'ajoute dans l'entête
+   * du gabarit et la retourne sous forme de DOMElement.
    * @link http://corrigesduweb.com/popups/meta-revisit.htm
-   * @param int $unite <p>
+   * @param integer $unite <p>
    * L'unité de fréquence à laquelle les moteurs de recherche doivent
    * revisiter le site. Si la valeur n'est pas renseigné correctement ou
-   * est à 0, elle sera initialisé à 1</p>
+   * est à 0, elle sera initialisé à 1
+   * </p>
    * @param string $frequence <p>
    * Valeurs acceptés : 'days' (jours), 'weeks' (semaines) ou 'month' (mois).
-   * Si la valeur n'est pas renseigné correctement, 'days' sera utilisé.</p>
+   * Si la valeur n'est pas renseigné correctement, 'days' sera utilisé.
+   * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaRevisitAfter($unite, $frequence='days')
   {
@@ -732,17 +685,22 @@ class GabaritXhtml
       $frequence = 'days';
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $unite.' '.$frequence;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document,       // DOMDocument
+      $unite.' '.$frequence, // content
+      'revisit-after'        // name
+    );
 
-    $this->metaRevisitAfter->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaRevisitAfter);
+    return $meta;
   }
 
   /**
-   * Ajoute la balise <meta> "robots" informant les moteurs de recherche sur
-   * l'utilité d'indexer la page ou de suivre les liens.<br/>
+   * Crée une balise "meta" "robots" informant les moteurs de recherche sur
+   * l'utilité d'indexer la page ou de suivre les liens, l'ajoute dans l'entête
+   * du gabarit et la retourne sous forme de DOMElement.<br/>
    * Si la balise n'est pas présente, l'instruction par défaut est d'indexer la
    * page et de suivre les liens.
    * @link http://corrigesduweb.com/popups/meta-robots.htm
@@ -752,6 +710,8 @@ class GabaritXhtml
    * @param boolean $suivre <p>
    * true = suivre les liens, false= ne pas suivre les liens
    * </p>
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public function AjouteMetaRobots($indexer=true, $suivre=true)
   {
@@ -773,12 +733,16 @@ class GabaritXhtml
       $suivre = 'nofollow';
     }
 
-    $attrContent = $this->document->createAttribute('content');
-    $attrContent->value = $indexer.','.$suivre;
+    $meta = XhtmlTransitional::CreeMeta
+    (
+      $this->document,      // DOMDocument
+      $indexer.','.$suivre, // content
+      'robots'              // name
+    );
 
-    $this->metaRobots->appendChild($attrContent);
+    $this->elementHead->appendChild($meta);
 
-    $this->elementHead->appendChild($this->metaRobots);
+    return $meta;
   }
 
   ////// GETTERS \\\\\\

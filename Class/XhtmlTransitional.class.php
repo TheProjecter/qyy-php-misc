@@ -76,7 +76,12 @@ class XhtmlTransitional {
    * CDATA implicite.
    * </p>
    * @param string $i18nLang <p>
-   * Internationalisation : le code language comme définit dans la [RFC3066]
+   * Internationalisation : le code language comme définit dans la [RFC 3066]
+   * </p>
+   * @param string $i18nDir <p>
+   * Internationalisation : Sens de l'écriture<br/>
+   * 'ltr' : de gauche à droite<br/>
+   * 'rtl' : de droite à gauche<br/>
    * </p>
    * @param string $scheme <p>
    * CDATA implicite.
@@ -84,13 +89,8 @@ class XhtmlTransitional {
    * @param string $id <p>
    * ID implicite.
    * </p>
-   * @param string $i18nLang <p>
-   * Internationalisation : Sens de l'écriture<br/>
-   * 'ltr' : de gauche à droite<br/>
-   * 'rtl' : de droite à gauche<br/>
-   * </p>
-   * @return DOMElement La balise meta sous la forme d'une nouvelle instance de
-   * la class DOMElement ou false si une erreur se produit.
+   * @return DOMElement La balise "meta" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
    */
   public static function CreeMeta(
     $document,
@@ -98,9 +98,9 @@ class XhtmlTransitional {
     $name=null,
     $httpEquiv=null,
     $i18nLang=null,
+    $i18nDir=null,
     $scheme=null,
-    $id=null,
-    $i18nDir=null)
+    $id=null)
   {
     $meta = $document->createElement('meta');
     
