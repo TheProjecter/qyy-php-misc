@@ -41,4 +41,4 @@
 require_once 'Class/Headers.class.php';
 require_once 'Class/Css2.class.php';
 require_once 'Class/XhtmlTransitional.class.php';
-require_once 'Class/GabaritXhtml.class.php';
+require_once 'Class/GabaritXhtmlTransitional.class.php';

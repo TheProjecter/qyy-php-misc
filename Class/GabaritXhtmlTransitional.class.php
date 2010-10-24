@@ -54,9 +54,6 @@ require_once 'XhtmlTransitional.class.php';
 // PROGRESS: Gestion d'ajout des CSS
 // PROGRESS: Gestion d'ajout des Styles
 // PROGRESS: Aller se documenter dans les RFC/W3C pour les metas et le reste
-// PROGRESS: Gestion META : passer init méta dans ajoute respectif (controle
-// duplique...)
-
 
 // TODO: Orthographe
 // TODO: Gestion d'ajout des scripts externe
@@ -277,7 +274,7 @@ class GabaritXhtmlTransitional
 // TODO: meta 'http-equiv' généré auto. par rapport header http
 //
 //  /**
-//   * Ajoute la balise <meta> "Content-Language" qui sert à indiquer la langue
+//   * Ajoute la balise "meta" "Content-Language" qui sert à indiquer la langue
 //   * de rédaction du contenu de la page.
 //   * @link http://corrigesduweb.com/popups/meta-language.htm
 //   * @param string $langue <p>
