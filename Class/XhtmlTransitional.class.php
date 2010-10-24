@@ -305,106 +305,106 @@ class XhtmlTransitional {
     $class = null,
     $style = null)
   {
-    $meta = $document->createElement('meta');
+    $link = $document->createElement('meta');
 
     if(!is_null($charset))
     {
       $attr = $document->createAttribute('charset');
       $attr->value = $charset;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($class))
     {
       $attr = $document->createAttribute('class');
       $attr->value = $class;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($i18nDir))
     {
       $attr = $document->createAttribute('dir');
       $attr->value = $i18nDir;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($href))
     {
       $attr = $document->createAttribute('href');
       $attr->value = $href;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($hreflang))
     {
       $attr = $document->createAttribute('hreflang');
       $attr->value = $hreflang;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($id))
     {
       $attr = $document->createAttribute('id');
       $attr->value = $id;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($i18nLang))
     {
       $attr = $document->createAttribute('lang');
       $attr->value = $i18nLang;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($media))
     {
       $attr = $document->createAttribute('media');
       $attr->value = $media;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($rel))
     {
       $attr = $document->createAttribute('rel');
       $attr->value = $rel;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($rev))
     {
       $attr = $document->createAttribute('rev');
       $attr->value = $rev;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($style))
     {
       $attr = $document->createAttribute('style');
       $attr->value = $style;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($target))
     {
       $attr = $document->createAttribute('target');
       $attr->value = $target;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($title))
     {
       $attr = $document->createAttribute('title');
       $attr->value = $title;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
     if(!is_null($type))
     {
       $attr = $document->createAttribute('type');
       $attr->value = $type;
-      $meta->appendChild($attr);
+      $link->appendChild($attr);
     }
 
-    return $meta;
+    return $link;
   }
 }

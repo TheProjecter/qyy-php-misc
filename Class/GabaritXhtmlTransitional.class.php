@@ -722,6 +722,42 @@ class GabaritXhtmlTransitional
     return $meta;
   }
 
+  /**
+   *
+   * @link http://bernard.quevillier.pagesperso-orange.fr/toposnew/link.htm
+   * @param string $href <p>
+   * une Uniform Resource Identifier, voir la [RFC2396] (rendu obsolete par
+   * la [RFC3986]).
+   * </p>
+   * @param string $media <p>
+   * Descripteur de média seul ou en liste séparées par des virgules.
+   * </p>
+   * @return DOMElement La balise "link" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
+   */
+  public function AjouteLinkCss($href, $media=null)
+  {
+    $href  = strval($href);
+
+    if (!is_null($media))
+    {
+      $media = strval($media);
+    }
+    
+    $link = XhtmlTransitional::Creelink(
+      $this->document, // DOMDocument
+      $href,           // href
+      'stylesheet',    // rel
+      'text/css',      // type
+      $media           // media
+      //$charset = null // TODO: Charset CSS ?
+    );
+
+    $this->elementHead->appendChild($link);
+
+    return $link;
+  }
+
   ////// GETTERS \\\\\\
 
   /**
