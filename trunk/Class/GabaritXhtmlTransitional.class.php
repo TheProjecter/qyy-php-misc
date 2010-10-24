@@ -50,6 +50,15 @@ require_once 'XhtmlTransitional.class.php';
 // DOC: SAXON - XPath Expression Syntax
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
+// DOC: Zvon - DTD Tutorial
+// http://zvon.org/xxl/DTDTutorial/General_fre/contents.html
+
+// DOC: W3C Systems Team Blog - W3C's Excessive DTD Traffic
+// http://www.w3.org/blog/systeam/2008/02/08/w3c_s_excessive_dtd_traffic
+// Voilà pourquoi on ne peut pas utiliser DOMDocument::validate() de merde :
+// Cette connerie de PHP pouris va chercher la DTD systématiquement créant un
+// DDOS chez le W3C qui bloque tout !
+
 // PROGRESS: Commentaires
 // PROGRESS: Gestion d'ajout des Styles
 // PROGRESS: Aller se documenter dans les RFC/W3C pour les metas et le reste
@@ -784,6 +793,33 @@ class GabaritXhtmlTransitional
   public function GetDocument()
   {
     return $this->document;
+  }
+
+  /**
+   *
+   * @return DOMElement
+   */
+  public function GetElementHtml()
+  {
+    return $this->elementHtml;
+  }
+
+  /**
+   *
+   * @return DOMElement
+   */
+  public function GetElementHead()
+  {
+    return $this->elementHead;
+  }
+
+  /**
+   *
+   * @return DOMElement
+   */
+  public function GetElementBody()
+  {
+    return $this->elementBody;
   }
 
   ////// SETTERS \\\\\\
