@@ -37,6 +37,8 @@
  * termes.
  */
 
+// TODO: créer des controles de chaines pour ID, NMTOKEN, etc.
+
 /**
  * Description of XhtmlTransitional
  *
@@ -50,24 +52,37 @@ class XhtmlTransitional {
    * Les attributs sont ajouté par ordre alphabétique dans la balise.<br/>
    * Section DTD :
    * <code>
-   * <!-- generic metainformation -->
-   * <!ELEMENT meta EMPTY>
-   * <!ATTLIST meta
-   *   %i18n;
-   *   id          ID             #IMPLIED
-   *   http-equiv  CDATA          #IMPLIED
-   *   name        CDATA          #IMPLIED
-   *   content     CDATA          #REQUIRED
-   *   scheme      CDATA          #IMPLIED
-   *   >
+   *   <!-- generic metainformation -->
+   *   <!ELEMENT meta EMPTY>
+   *   <!ATTLIST meta
+   *     %i18n;
+   *     id          ID             #IMPLIED
+   *     http-equiv  CDATA          #IMPLIED
+   *     name        CDATA          #IMPLIED
+   *     content     CDATA          #REQUIRED
+   *     scheme      CDATA          #IMPLIED
+   *     >
    * </code>
+   * Section DTD "i18n" :
+   * <code>
+   *   <!-- internationalization attributes
+   *    lang        language code (backwards compatible)
+   *     xml:lang    language code (as per XML 1.0 spec)
+   *     dir         direction for weak/neutral text
+   *   -->
+   *   <!ENTITY % i18n
+   *    "lang        %LanguageCode; #IMPLIED
+   *     xml:lang    %LanguageCode; #IMPLIED
+   *     dir         (ltr|rtl)      #IMPLIED"
+   *     >
+   * </code>
+   * @link http://bernard.quevillier.pagesperso-orange.fr/toposnew/meta.htm
    * @link http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
-   * @link http://www.ietf.org/rfc/rfc3066.txt
    * @param DOMDocument $document <p>
-   * Requis. Le DOMDocument auquel sera ajouté la "meta".
+   * Le DOMDocument auquel sera ajouté la "meta".
    * </p>
-   * @param string $content CDATA <p>
-   * Requis.
+   * @param string $content <p>
+   * CDATA Requis.
    * </p>
    * @param string $name <p>
    * CDATA implicite.
@@ -76,7 +91,7 @@ class XhtmlTransitional {
    * CDATA implicite.
    * </p>
    * @param string $i18nLang <p>
-   * Internationalisation : le code language comme définit dans la [RFC 3066]
+   * Internationalisation : le code language comme définit dans la [RFC3066]
    * </p>
    * @param string $i18nDir <p>
    * Internationalisation : Sens de l'écriture<br/>
@@ -150,6 +165,242 @@ class XhtmlTransitional {
       $meta->appendChild($attr);
     }
     
+    return $meta;
+  }
+
+  /**
+   * Crée une balise "link" en fonction du DOMDocument fournit, et la retourne
+   * sous la forme d'un DOMElement<br/>
+   * Les attributs sont ajouté par ordre alphabétique dans la balise.<br/>
+   * Section DTD :
+   * <code>
+   *   <!--
+   *     Relationship values can be used in principle:
+   *
+   *      a) for document specific toolbars/menus when used
+   *         with the link element in document head e.g.
+   *           start, contents, previous, next, index, end, help
+   *      b) to link to a separate style sheet (rel="stylesheet")
+   *      c) to make a link to a script (rel="script")
+   *      d) by stylesheets to control how collections of
+   *         html nodes are rendered into printed documents
+   *      e) to make a link to a printable version of this document
+   *         e.g. a PostScript or PDF version (rel="alternate" media="print")
+   *   -->
+   *
+   *   <!ELEMENT link EMPTY>
+   *   <!ATTLIST link
+   *     %attrs;
+   *     charset     %Charset;      #IMPLIED
+   *     href        %URI;          #IMPLIED
+   *     hreflang    %LanguageCode; #IMPLIED
+   *     type        %ContentType;  #IMPLIED
+   *     rel         %LinkTypes;    #IMPLIED
+   *     rev         %LinkTypes;    #IMPLIED
+   *     media       %MediaDesc;    #IMPLIED
+   *     target      %FrameTarget;  #IMPLIED
+   *     >
+   * </code>
+   * Section DTD "attrs" :
+   * <code>
+   *   <!ENTITY % attrs "%coreattrs; %i18n; %events;">
+   * </code>
+   * Section DTD "i18n" :
+   * <code>
+   *   <!-- internationalization attributes
+   *    lang        language code (backwards compatible)
+   *     xml:lang    language code (as per XML 1.0 spec)
+   *     dir         direction for weak/neutral text
+   *   -->
+   *   <!ENTITY % i18n
+   *    "lang        %LanguageCode; #IMPLIED
+   *     xml:lang    %LanguageCode; #IMPLIED
+   *     dir         (ltr|rtl)      #IMPLIED"
+   *     >
+   * </code>
+   * Section DTD "coreattrs" :
+   * <code>
+   *   <!-- core attributes common to most elements
+   *     id       document-wide unique id
+   *     class    space separated list of classes
+   *     style    associated style info
+   *     title    advisory title/amplification
+   *   -->
+   *   <!ENTITY % coreattrs
+   *    "id          ID             #IMPLIED
+   *     class       CDATA          #IMPLIED
+   *     style       %StyleSheet;   #IMPLIED
+   *     title       %Text;         #IMPLIED"
+   *     >
+   * </code>
+   * @todo Gérer events
+   * @link http://bernard.quevillier.pagesperso-orange.fr/toposnew/link.htm
+   * @link http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+   * @param string $href <p>
+   * une Uniform Resource Identifier, voir la [RFC2396] (rendu obsolete par
+   * la [RFC3986]).
+   * </p>
+   * @param string $rel <p>
+   * Liste de types de liens de séparées par des espaces.
+   * </p>
+   * @param string $type <p>
+   * Type de média, selon la [RFC2045].
+   * </p>
+   * @param string $media <p>
+   * Descripteur de média seul ou en liste séparées par des virgules.
+   * </p>
+   * @param string $charset <p>
+   * Un encodage de caractères, selon la [RFC2045].
+   * </p>
+   * @param string $target <p>
+   * Rendre dans ce cadre (cette frame).
+   * </p>
+   * @param string $hreflang <p>
+   * Langue de la ressource pointé dans "href" avec un code language comme
+   * définit dans la [RFC3066].
+   * </p>
+   * @param string $rev <p>
+   * Liste de types de liens de séparées par des espaces.
+   * </p>
+   * @param string $i18nLang <p>
+   * Internationalisation : le code language comme définit dans la [RFC3066]
+   * </p>
+   * @param string $i18nDir <p>
+   * Internationalisation : Sens de l'écriture<br/>
+   * 'ltr' : de gauche à droite<br/>
+   * 'rtl' : de droite à gauche<br/>
+   * </p>
+   * @param string $title <p>
+   * Utilisé pour les titres, etc.
+   * </p>
+   * @param string $id <p>
+   * ID implicite.
+   * </p>
+   * @param string $class <p>
+   * CDATA implicite.
+   * </p>
+   * @param string $style <p>
+   * Données de feuille de style
+   * </p>
+   * @return DOMElement La balise "link" sous la forme d'une nouvelle instance
+   * de la class DOMElement ou false si une erreur se produit.
+   */
+  public static function Creelink(
+    $href = null,
+    $rel = null,
+    $type = null,
+    $media = null,
+    $charset = null,
+    $target = null,
+    $hreflang = null,
+    $rev = null,
+    $i18nLang = null,
+    $i18nDir = null,
+    $title = null,
+    $id = null,
+    $class = null,
+    $style = null)
+  {
+    $meta = $document->createElement('meta');
+
+    if(!is_null($charset))
+    {
+      $attr = $document->createAttribute('charset');
+      $attr->value = $charset;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($class))
+    {
+      $attr = $document->createAttribute('class');
+      $attr->value = $class;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($i18nDir))
+    {
+      $attr = $document->createAttribute('dir');
+      $attr->value = $i18nDir;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($href))
+    {
+      $attr = $document->createAttribute('href');
+      $attr->value = $href;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($hreflang))
+    {
+      $attr = $document->createAttribute('hreflang');
+      $attr->value = $hreflang;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($id))
+    {
+      $attr = $document->createAttribute('id');
+      $attr->value = $id;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($i18nLang))
+    {
+      $attr = $document->createAttribute('lang');
+      $attr->value = $i18nLang;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($media))
+    {
+      $attr = $document->createAttribute('media');
+      $attr->value = $media;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($rel))
+    {
+      $attr = $document->createAttribute('rel');
+      $attr->value = $rel;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($rev))
+    {
+      $attr = $document->createAttribute('rev');
+      $attr->value = $rev;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($style))
+    {
+      $attr = $document->createAttribute('style');
+      $attr->value = $style;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($target))
+    {
+      $attr = $document->createAttribute('target');
+      $attr->value = $target;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($title))
+    {
+      $attr = $document->createAttribute('title');
+      $attr->value = $title;
+      $meta->appendChild($attr);
+    }
+
+    if(!is_null($type))
+    {
+      $attr = $document->createAttribute('type');
+      $attr->value = $type;
+      $meta->appendChild($attr);
+    }
+
     return $meta;
   }
 }
