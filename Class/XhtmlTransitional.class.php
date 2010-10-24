@@ -236,6 +236,9 @@ class XhtmlTransitional {
    * @todo Gérer events
    * @link http://bernard.quevillier.pagesperso-orange.fr/toposnew/link.htm
    * @link http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd
+   * @param DOMDocument $document <p>
+   * Le DOMDocument auquel sera ajouté la "meta".
+   * </p>
    * @param string $href <p>
    * une Uniform Resource Identifier, voir la [RFC2396] (rendu obsolete par
    * la [RFC3986]).
@@ -286,6 +289,7 @@ class XhtmlTransitional {
    * de la class DOMElement ou false si une erreur se produit.
    */
   public static function Creelink(
+    $document,
     $href = null,
     $rel = null,
     $type = null,
