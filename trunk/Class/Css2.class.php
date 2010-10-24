@@ -97,7 +97,7 @@ class Css2
   const MEDIA_SCREEN = 'screen';
 
   /**
-   * Destiné à des synthétiseurs vocaux. Note: CSS2 avait un type de média dénommé
+   * Destiné aux synthétiseurs vocaux. Note: CSS2 avait un type de média dénommé
    * 'aural' à cette fin. Voir l'annexe sur les feuilles de style auditives pour
    * plus de détails.
    * @link http://www.w3.org/TR/CSS2/media.html

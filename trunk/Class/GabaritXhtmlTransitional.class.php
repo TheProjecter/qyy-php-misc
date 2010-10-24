@@ -270,8 +270,6 @@ class GabaritXhtmlTransitional
     return $meta;
   }
 
-
-
   /**
    * Crée une balise "meta" "copyright" qui sert à indiquer le ou les copyright
    * attenant au contenu de la page, l'ajoute dans l'entête du gabarit et la
@@ -751,7 +749,7 @@ class GabaritXhtmlTransitional
       'stylesheet',    // rel
       'text/css',      // type
       $media           // media
-      //$charset = null // TODO: Charset CSS ?
+      //$charset=null  // TODO: Charset CSS ?
     );
 
     $this->elementHead->appendChild($link);
