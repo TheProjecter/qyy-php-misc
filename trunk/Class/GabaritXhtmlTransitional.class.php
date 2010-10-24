@@ -766,6 +766,38 @@ class GabaritXhtmlTransitional
     return $link;
   }
 
+  /**
+   *
+   * @param string $xhtml <p>
+   * Le corp de la page au format XHTML Transitional valide
+   * </p>
+   * @return mixed true si l'opération s'est correctement exectué, une exception
+   * dans le cas contraire.
+   */
+  public function ImporteXhtmlDansBody($xhtml)
+  {
+    try
+    {
+      // HACK: J'ai pas trouvé d'autre moyen pour importer du XML en chaine...
+      $simpleXmlElement = new SimpleXMLElement(
+                            XhtmlTransitional::ConvertieEntiteVersUnicode(
+                              $xhtml
+                            )
+                          );
+      $domElement = dom_import_simplexml($simpleXmlElement);
+
+      $domElement = $this->document->importNode($domElement, true);
+
+      $this->elementBody->appendChild($domElement);
+
+      return true;
+    }
+    catch (Exception $ex)
+    {
+      return $ex;
+    }
+  }
+
   ////// GETTERS \\\\\\
 
   /**
@@ -847,38 +879,6 @@ class GabaritXhtmlTransitional
   public function SetLang($langue)
   {
     $this->attrLang->value = $langue;
-  }
-
-  /**
-   *
-   * @param string $xhtml <p>
-   * Le corp de la page au format XHTML Transitional valide
-   * </p>
-   * @return mixed true si l'opération s'est correctement exectué, une exception
-   * dans le cas contraire.
-   */
-  public function SetBody($xhtml)
-  {
-    try
-    {
-      // HACK: J'ai pas trouvé d'autre moyen pour importer du XML en chaine...
-      $simpleXmlElement = new SimpleXMLElement(
-                            XhtmlTransitional::ConvertieEntiteVersUnicode(
-                              $xhtml
-                            )
-                          );
-      $domElement = dom_import_simplexml($simpleXmlElement);
-      
-      $domElement = $this->document->importNode($domElement, true);
-
-      $this->elementBody->appendChild($domElement);
-
-      return true;
-    }
-    catch (Exception $ex)
-    {
-      return $ex;
-    }
   }
 
 // TODO: meta 'http-equiv' généré auto. par rapport header http
