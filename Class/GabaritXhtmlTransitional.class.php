@@ -51,7 +51,6 @@ require_once 'XhtmlTransitional.class.php';
 // http://saxon.sourceforge.net/saxon6.5.3/expressions.html
 
 // PROGRESS: Commentaires
-// PROGRESS: Gestion d'ajout des CSS
 // PROGRESS: Gestion d'ajout des Styles
 // PROGRESS: Aller se documenter dans les RFC/W3C pour les metas et le reste
 
@@ -723,7 +722,9 @@ class GabaritXhtmlTransitional
   }
 
   /**
-   *
+   * Crée une balise "link" "stylesheet" faisant référence à une feuille de
+   * style, l'ajoute dans l'entête du gabarit et la retourne sous forme de
+   * DOMMElement.
    * @link http://bernard.quevillier.pagesperso-orange.fr/toposnew/link.htm
    * @param string $href <p>
    * une Uniform Resource Identifier, voir la [RFC2396] (rendu obsolete par
