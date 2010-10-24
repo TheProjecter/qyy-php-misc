@@ -271,27 +271,7 @@ class GabaritXhtmlTransitional
     return $meta;
   }
 
-// TODO: meta 'http-equiv' généré auto. par rapport header http
-//
-//  /**
-//   * Ajoute la balise "meta" "Content-Language" qui sert à indiquer la langue
-//   * de rédaction du contenu de la page.
-//   * @link http://corrigesduweb.com/popups/meta-language.htm
-//   * @param string $langue <p>
-//   * La langue de rédaction du contenu de la page sur deux lettres.
-//   * </p>
-//   */
-//  public function AjouteMetaContentLanguage($langue = 'fr')
-//  {
-//    $langue = strval($langue);
-//
-//    $attrContent = $this->document->createAttribute('content');
-//    $attrContent->value = $langue;
-//
-//    $this->metaContentLanguage->appendChild($attrContent);
-//
-//    $this->elementHead->appendChild($this->metaContentLanguage);
-//  }
+
 
   /**
    * Crée une balise "meta" "copyright" qui sert à indiquer le ou les copyright
@@ -797,5 +777,27 @@ class GabaritXhtmlTransitional
   {
     $this->attrLang->value = $langue;
   }
+
+// TODO: meta 'http-equiv' généré auto. par rapport header http
+//
+//  /**
+//   * Ajoute la balise "meta" "Content-Language" qui sert à indiquer la langue
+//   * de rédaction du contenu de la page.
+//   * @link http://corrigesduweb.com/popups/meta-language.htm
+//   * @param string $langue <p>
+//   * La langue de rédaction du contenu de la page sur deux lettres.
+//   * </p>
+//   */
+//  public function AjouteMetaContentLanguage($langue = 'fr')
+//  {
+//    $langue = strval($langue);
+//
+//    $attrContent = $this->document->createAttribute('content');
+//    $attrContent->value = $langue;
+//
+//    $this->metaContentLanguage->appendChild($attrContent);
+//
+//    $this->elementHead->appendChild($this->metaContentLanguage);
+//  }
 
 }
