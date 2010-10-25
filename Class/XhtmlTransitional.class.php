@@ -409,8 +409,8 @@ class XhtmlTransitional {
   }
 
   /**
-   * Convertit toutes les éntités déclarées dans la DTD XHTML Transitional en
-   * entités unicode. Si c'est pas triste de devoir en arriver là...<br/>
+   * Convertit toutes les entités déclarées dans la DTD XHTML Transitional en
+   * entités Unicode. Si c'est pas triste de devoir en arriver là...<br/>
    * Section DTD :
    * <code>
    *   <!--================ Character mnemonic entities =========================-->
@@ -435,9 +435,10 @@ class XhtmlTransitional {
    * @link http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent
    * @link http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent
    * @param string $chaine <p>
-   * Une chaine contenant des entités décralées dans la DTD XHTML Transitional
+   * Une chaine contenant des entités déclarées dans la DTD XHTML Transitional
    * </p>
-   * @return <type>
+   * @return string La chaine fournit dont les entités déclarées dans la DTD 
+   * XHTML Transitional ont été convertis en entités Unicode.
    */
   static function ConvertieEntiteVersUnicode($chaine)
   {
