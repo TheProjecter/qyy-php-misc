@@ -44,6 +44,17 @@
  */
 class Headers {
 
+  // DOC: List of HTTP header fields
+  // http://en.wikipedia.org/wiki/List_of_HTTP_header_fields
+
+  // DOC: Liste des codes HTTP
+  // http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+
+  // DOC: Un EXCELLENT diagrame sur les STATUS CODES !
+  // http://upload.wikimedia.org/wikipedia/commons/6/65/Http-headers-status.gif
+
+  // TODO: Rendre cette doc plus cohérente, RFC, toussa...
+
   /**
    * Content-Types attendus<br/>
    * Exemple :
@@ -366,6 +377,312 @@ class Headers {
    */
   const REQUEST_WARNING
     = 'Warning';
+
+  // TODO: traduire
+  /**
+   * What partial content range types this server supports<br/>
+   * Exemple :
+   * <code>
+   *   Accept-Ranges: bytes
+   * </code>
+   */
+  const RESPONSE_ACCEPT_RANGES
+    = 'Accept-Ranges';
+
+  /**
+   * The age the object has been in a proxy cache in seconds<br/>
+   * Exemple :
+   * <code>
+   *   Age: 12
+   * </code>
+   */
+  const RESPONSE_AGE
+    = 'Age';
+
+  /**
+   * Valid actions for a specified resource. To be used for a "405 Method not
+   * allowed"<br/>
+   * Exemple :
+   * <code>
+   *   Allow: GET, HEAD
+   * </code>
+   */
+  const RESPONSE_ALLOW
+    = 'Allow';
+
+  /**
+   * Tells all caching mechanisms from server to client whether they may cache
+   * this object<br/>
+   * Exemple :
+   * <code>
+   *   Cache-Control: max-age
+   * </code>
+   */
+  const RESPONSE_CACHE_CONTROL
+    = 'Cache-Control';
+
+  /**
+   * The type of encoding used on the data<br/>
+   * Exemple :
+   * <code>
+   *   Content-Encoding: gzip
+   * </code>
+   */
+  const RESPONSE_CONTENT_ENCODING
+    = 'Content-Encoding';
+
+  /**
+   * The language the content is in<br/>
+   * Exemple :
+   * <code>
+   *   Content-Language: da
+   * </code>
+   */
+  const RESPONSE_CONTENT_LANGUAGE
+    = 'Content-Language';
+
+  /**
+   * The length of the response body in octets (8-bit bytes)<br/>
+   * Exemple :
+   * <code>
+   *   Content-Length: 348
+   * </code>
+   */
+  const RESPONSE_CONTENT_LENGTH
+    = 'Content-Length';
+
+  /**
+   * An alternate location for the returned data<br/>
+   * Exemple :
+   * <code>
+   *   Content-Location: /index.htm
+   * </code>
+   */
+  const RESPONSE_CONTENT_LOCATION
+    = 'Content-Location';
+
+  /**
+   * An opportunity to raise a "File Download" dialogue box for a known MIME
+   * type<br/>
+   * Exemple :
+   * <code>
+   *   Content-Disposition: attachment; filename=fname.ext
+   * </code>
+   */
+  const RESPONSE_CONTENT_DISPOSITION
+    = 'Content-Disposition';
+
+  /**
+   * A Base64-encoded binary MD5 sum of the content of the response<br/>
+   * Exemple :
+   * <code>
+   *   Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ==
+   * </code>
+   */
+  const RESPONSE_CONTENT_MD5
+    = 'Content-MD5';
+
+  /**
+   * Where in a full body message this partial message belongs<br/>
+   * Exemple :
+   * <code>
+   *   Content-Range: bytes 21010-47021/47022
+   * </code>
+   */
+  const RESPONSE_CONTENT_RANGE
+    = 'Content-Range';
+
+  /**
+   * The mime type of this content<br/>
+   * Exemple :
+   * <code>
+   *   Content-Type: text/html; charset=utf-8
+   * </code>
+   */
+  const RESPONSE_CONTENT_TYPE
+    = 'Content-Type';
+
+  /**
+   * The date and time that the message was sent<br/>
+   * Exemple :
+   * <code>
+   *   Date: Tue, 15 Nov 1994 08:12:31 GMT
+   * </code>
+   */
+  const RESPONSE_DATE
+    = 'Date';
+
+  /**
+   * An identifier for a specific version of a resource, often a Message Digest,
+   * see ETag<br/>
+   * Exemple :
+   * <code>
+   *   ETag: "737060cd8c284d8af7ad3082f209582d"
+   * </code>
+   */
+  const RESPONSE_ETAG
+    = 'ETag';
+
+  /**
+   * Gives the date/time after which the response is considered stale<br/>
+   * Exemple :
+   * <code>
+   *   Expires: Thu, 01 Dec 1994 16:00:00 GMT
+   * </code>
+   */
+  const RESPONSE_EXPIRES
+    = 'Expires';
+
+  /**
+   * The last modified date for the requested object, in RFC 2822 format<br/>
+   * Exemple :
+   * <code>
+   *   Last-Modified: Tue, 15 Nov 1994 12:45:26 GMT
+   * </code>
+   */
+  const RESPONSE_LAST_MODIFIED
+    = 'Last-Modified';
+
+  /**
+   * Used in redirection, or when a new resource has been created.<br/>
+   * Exemple :
+   * <code>
+   *   Location: http://www.w3.org/pub/WWW/People.html
+   * </code>
+   */
+  const RESPONSE_LOCATION
+    = 'Location';
+
+  /**
+   * Implementation-specific headers that may have various effects anywhere
+   * along the request-response chain.<br/>
+   * Exemple :
+   * <code>
+   *   Pragma: no-cache
+   * </code>
+   */
+  const RESPONSE_PRAGMA
+  = 'Pragma';
+
+  /**
+   * Request authentication to access the proxy.<br/>
+   * Exemple :
+   * <code>
+   *   Proxy-Authenticate: Basic
+   * </code>
+   */
+  const RESPONSE_PROXY_AUTHENTICATE
+    = 'Proxy-Authenticate';
+
+  /**
+   * Used in redirection, or when a new resource has been created. This refresh
+   * redirects after 5 seconds. (This is a proprietary/non-standard header
+   * extension introduced by Netscape and supported by most web browsers.)<br/>
+   * Exemple :
+   * <code>
+   *   Refresh: 5; url=http://www.w3.org/pub/WWW/People.html
+   * </code>
+   */
+  const RESPONSE_REFRESH
+    = 'Refresh';
+
+  /**
+   * If an entity is temporarily unavailable, this instructs the client to try
+   * again after a specified period of time.<br/>
+   * Exemple :
+   * <code>
+   *   Retry-After: 120
+   * </code>
+   */
+  const RESPONSE_RETRY_AFTER
+    = 'Retry-After';
+
+  /**
+   * A name for the server<br/>
+   * Exemple :
+   * <code>
+   *   Server: Apache/1.3.27 (Unix) (Red-Hat/Linux)
+   * </code>
+   */
+  const RESPONSE_SERVER
+    = 'Server';
+
+  /**
+   * an HTTP cookie<br/>
+   * Exemple :
+   * <code>
+   *   Set-Cookie: UserID=JohnDoe; Max-Age=3600; Version=1
+   * </code>
+   */
+  const RESPONSE_SET_COOKIE
+    = 'Set-Cookie';
+
+  /**
+   * The Trailer general field value indicates that the given set of header
+   * fields is present in the trailer of a message encoded with chunked
+   * transfer-coding.<br/>
+   * Exemple :
+   * <code>
+   *   Trailer: Max-Forwards
+   * </code>
+   */
+  const RESPONSE_TRAILER
+    = 'Trailer';
+
+  /**
+   * The form of encoding used to safely transfer the entity to the user.
+   * Currently defined methods are: chunked, compress, deflate, gzip,
+   * identity.<br/>
+   * Exemple :
+   * <code>
+   *   Transfer-Encoding: chunked
+   * </code>
+   */
+  const RESPONSE_TRANSFER_ENCODING
+    = 'Transfer-Encoding';
+
+  /**
+   * Tells downstream proxies how to match future request headers to decide
+   * whether the cached response can be used rather than requesting a fresh one
+   * from the origin server.<br/>
+   * Exemple :
+   * <code>
+   *   Vary: *
+   * </code>
+   */
+  const RESPONSE_VARY
+    = 'Vary';
+
+  /**
+   * Informs the client of proxies through which the response was sent.<br/>
+   * Exemple :
+   * <code>
+   *   Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)
+   * </code>
+   */
+  const RESPONSE_VIA
+    = 'Via';
+
+  /**
+   * A general warning about possible problems with the entity body.<br/>
+   * Exemple :
+   * <code>
+   *   Warning: 199 Miscellaneous warning
+   * </code>
+   */
+  const RESPONSE_WARNING
+    = 'Warning';
+
+  /**
+   * Indicates the authentication scheme that should be used to access the
+   * requested entity.<br/>
+   * Exemple :
+   * <code>
+   *   WWW-Authenticate: Basic
+   * </code>
+   */
+  const RESPONSE_WWW_AUTHENTICATE
+    = 'WWW-Authenticate';
 
   function __construct() {
  
