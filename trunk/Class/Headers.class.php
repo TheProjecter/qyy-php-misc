@@ -686,7 +686,7 @@ class Headers {
 
 
   /**
-   * Information : Attente de la suite de la requête<br/>
+   * Information : Attente de la suite de la requête.<br/>
    * Il FAUT que le client poursuive sa requete. Cette réponse provisoire est
    * utilisée pour informer le client que la partie initiale de la requete a été
    * reçue et n'a pas encore été rejetée par le serveur. Le client doit se
@@ -704,6 +704,7 @@ class Headers {
   const STATUS_100 = 'Status: 100 Continue';
 
   /**
+   * Information : Acceptation du changement de protocole.<br/>
    * The server understands and is willing to comply with the client's request,
    * via the Upgrade message header field (section 14.42), for a change in the
    * application protocol being used on this connection. The server will switch
@@ -718,11 +719,43 @@ class Headers {
    * @todo Links
    * @link http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
    * @link http://tools.ietf.org/html/rfc2616
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1.2
    */
   const STATUS_101 = 'Status: 101 Switching Protocols';
 
-  // TODO: Le reste de la PHPDOC
+  /**
+   * Information - WebDAV : Traitement en cours (évite que le client dépasse le
+   * temps d'attente limite).<br/>
+   * Le code d'état 102 (Traitement) est une réponse intermédiaire utilisée pour
+   * informer le client que le serveur a accepté la totalité de la requête, mais
+   * n'a pas fini de l'exécuter. Ce code d'état DEVRAIT être seulement envoyé
+   * quand le serveur a de sérieuses raisons de juger que la requête prendra un
+   * temps significatif avant d'être complètement terminée. Comme consigne
+   * générale, si le serveur détermine qu'une méthode prendra plus de 20
+   * secondes (une valeur raisonnable, quoique arbitraire) pour exécuter un
+   * traitement, alors il DEVRAIT retourner une réponse 102 (Traitement). Le
+   * serveur DEVRA envoyer une réponse finale après l'accomplissement total de
+   * la requête.<br/>
+   * <br/>
+   * Le traitement des méthodes peut potentiellement prendre un certain temps,
+   * particulièrement celles qui supportent l'entête Depth. dans ces cas là, le
+   * client peut interrompre sa connection avec le serveur alors qu'il est en
+   * attente d'une réponse. Pour se pémunir de cela, le serveur peut retourner
+   * un code d'état 102 (Traitement) pour informer le client qu'il est toujours
+   * en train de d'exécuter la méthode.
+   * @link http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+   * @link http://fr.wikipedia.org/wiki/WebDAV
+   * @link http://xmlfr.org/ietf/rfc2518.html
+   * @link http://xmlfr.org/ietf/rfc2518.html#sec-10.1
+   * @link http://tools.ietf.org/html/rfc2518
+   * @link http://tools.ietf.org/html/rfc2518#section-10.1
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1
+   */
   const STATUS_102 = 'Status: 102 Processing';
+
+
+  // TODO: Le reste de la PHPDOC
   const STATUS_200 = 'Status: 200 OK';
   const STATUS_201 = 'Status: 201 Created';
   const STATUS_202 = 'Status: 202 Accepted';
