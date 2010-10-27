@@ -684,6 +684,98 @@ class Headers {
   const RESPONSE_WWW_AUTHENTICATE
     = 'WWW-Authenticate';
 
+
+  /**
+   * Information : Attente de la suite de la requête<br/>
+   * Il FAUT que le client poursuive sa requete. Cette réponse provisoire est
+   * utilisée pour informer le client que la partie initiale de la requete a été
+   * reçue et n'a pas encore été rejetée par le serveur. Le client doit se
+   * poursuivre par l'envoi du reste de la requete ou, si cela à déjà été
+   * effectué, ignorer cette réponse. Le serveur DOIT envoyer une réponse finale
+   * dès que la requete est traité. Voir la section 8.2.3 de la [RFC2616] pour
+   * une analyse détaillée de l'utilisation et la manipulation de ce code
+   * d'état.
+   * @link http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+   * @link http://tools.ietf.org/html/rfc2616
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1.1
+   * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.2.3
+   */
+  const STATUS_100 = 'Status: 100 Continue';
+
+  /**
+   * The server understands and is willing to comply with the client's request,
+   * via the Upgrade message header field (section 14.42), for a change in the
+   * application protocol being used on this connection. The server will switch
+   * protocols to those defined by the response's Upgrade header field
+   * immediately after the empty line which terminates the 101 response.<br/>
+   * <br/>
+   * The protocol SHOULD be switched only when it is advantageous to do so. For
+   * example, switching to a newer version of HTTP is advantageous over older
+   * versions, and switching to a real-time, synchronous protocol might be
+   * advantageous when delivering resources that use such features.
+   * @todo Traduire
+   * @todo Links
+   * @link http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
+   * @link http://tools.ietf.org/html/rfc2616
+   */
+  const STATUS_101 = 'Status: 101 Switching Protocols';
+
+  // TODO: Le reste de la PHPDOC
+  const STATUS_102 = 'Status: 102 Processing';
+  const STATUS_200 = 'Status: 200 OK';
+  const STATUS_201 = 'Status: 201 Created';
+  const STATUS_202 = 'Status: 202 Accepted';
+  const STATUS_203 = 'Status: 203 Non-Authoritative Information';
+  const STATUS_204 = 'Status: 204 No Content';
+  const STATUS_205 = 'Status: 205 Reset Content';
+  const STATUS_206 = 'Status: 206 Partial Content';
+  const STATUS_207 = 'Status: 207 Multi-Status';
+  const STATUS_210 = 'Status: 210 Content Different';
+  const STATUS_300 = 'Status: 300 Multiple Choices';
+  const STATUS_301 = 'Status: 301 Moved Permanently';
+  const STATUS_302 = 'Status: 302 Found';
+  const STATUS_303 = 'Status: 303 See Other';
+  const STATUS_304 = 'Status: 304 Not Modified';
+  const STATUS_305 = 'Status: 305 Use Proxy';
+  const STATUS_307 = 'Status: 307 Temporary Redirect';
+  const STATUS_310 = 'Status: 310 Too many Redirect';
+  const STATUS_400 = 'Status: 400 Bad Request';
+  const STATUS_401 = 'Status: 401 Unauthorized';
+  const STATUS_402 = 'Status: 402 Payment Required';
+  const STATUS_403 = 'Status: 403 Forbidden';
+  const STATUS_404 = 'Status: 404 Not Found';
+  const STATUS_405 = 'Status: 405 Method Not Allowed';
+  const STATUS_406 = 'Status: 406 Not Acceptable';
+  const STATUS_407 = 'Status: 407 Proxy Authentication Required';
+  const STATUS_408 = 'Status: 408 Request Time-out';
+  const STATUS_409 = 'Status: 409 Conflict';
+  const STATUS_410 = 'Status: 410 Gone';
+  const STATUS_411 = 'Status: 411 Length Required';
+  const STATUS_412 = 'Status: 412 Precondition Failed';
+  const STATUS_413 = 'Status: 413 Request Entity Too Large';
+  const STATUS_414 = 'Status: 414 Request-URI Too Long';
+  const STATUS_415 = 'Status: 415 Unsupported Media Type';
+  const STATUS_416 = 'Status: 416 Requested range unsatisfiable';
+  const STATUS_417 = 'Status: 417 Expectation failed';
+  const STATUS_418 = "Status: 418 I'm a teapot";
+  const STATUS_422 = 'Status: 422 Unprocessable entity';
+  const STATUS_423 = 'Status: 423 Locked';
+  const STATUS_424 = 'Status: 424 Method failure';
+  const STATUS_425 = 'Status: 425 Unordered Collection';
+  const STATUS_426 = 'Status: 426 Upgrade Required';
+  const STATUS_449 = 'Status: 449 Retry With';
+  const STATUS_450 = 'Status: 450 Blocked by Windows Parental Controls';
+  const STATUS_500 = 'Status: 500 Internal Server Error';
+  const STATUS_501 = 'Status: 501 Not Implemented';
+  const STATUS_502 = 'Status: 502 Bad Gateway ou Proxy Error';
+  const STATUS_503 = 'Status: 503 Service Unavailable';
+  const STATUS_504 = 'Status: 504 Gateway Time-out';
+  const STATUS_505 = 'Status: 505 HTTP Version not supported';
+  const STATUS_507 = 'Status: 507 Insufficient storage';
+  const STATUS_509 = 'Status: 509 Bandwidth Limit Exceeded';
+
+
   function __construct() {
  
   }
