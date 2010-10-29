@@ -385,6 +385,7 @@ class Headers {
    * <code>
    *   Accept-Ranges: bytes
    * </code>
+   * @todo traduire
    */
   const RESPONSE_ACCEPT_RANGES
     = 'Accept-Ranges';
@@ -395,6 +396,7 @@ class Headers {
    * <code>
    *   Age: 12
    * </code>
+   * @todo traduire
    */
   const RESPONSE_AGE
     = 'Age';
@@ -406,6 +408,7 @@ class Headers {
    * <code>
    *   Allow: GET, HEAD
    * </code>
+   * @todo traduire
    */
   const RESPONSE_ALLOW
     = 'Allow';
@@ -417,6 +420,7 @@ class Headers {
    * <code>
    *   Cache-Control: max-age
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CACHE_CONTROL
     = 'Cache-Control';
@@ -427,6 +431,7 @@ class Headers {
    * <code>
    *   Content-Encoding: gzip
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_ENCODING
     = 'Content-Encoding';
@@ -437,6 +442,7 @@ class Headers {
    * <code>
    *   Content-Language: da
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_LANGUAGE
     = 'Content-Language';
@@ -447,6 +453,7 @@ class Headers {
    * <code>
    *   Content-Length: 348
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_LENGTH
     = 'Content-Length';
@@ -457,6 +464,7 @@ class Headers {
    * <code>
    *   Content-Location: /index.htm
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_LOCATION
     = 'Content-Location';
@@ -468,6 +476,7 @@ class Headers {
    * <code>
    *   Content-Disposition: attachment; filename=fname.ext
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_DISPOSITION
     = 'Content-Disposition';
@@ -478,6 +487,7 @@ class Headers {
    * <code>
    *   Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ==
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_MD5
     = 'Content-MD5';
@@ -488,6 +498,7 @@ class Headers {
    * <code>
    *   Content-Range: bytes 21010-47021/47022
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_RANGE
     = 'Content-Range';
@@ -498,6 +509,7 @@ class Headers {
    * <code>
    *   Content-Type: text/html; charset=utf-8
    * </code>
+   * @todo traduire
    */
   const RESPONSE_CONTENT_TYPE
     = 'Content-Type';
@@ -508,6 +520,7 @@ class Headers {
    * <code>
    *   Date: Tue, 15 Nov 1994 08:12:31 GMT
    * </code>
+   * @todo traduire
    */
   const RESPONSE_DATE
     = 'Date';
@@ -519,6 +532,7 @@ class Headers {
    * <code>
    *   ETag: "737060cd8c284d8af7ad3082f209582d"
    * </code>
+   * @todo traduire
    */
   const RESPONSE_ETAG
     = 'ETag';
@@ -529,6 +543,7 @@ class Headers {
    * <code>
    *   Expires: Thu, 01 Dec 1994 16:00:00 GMT
    * </code>
+   * @todo traduire
    */
   const RESPONSE_EXPIRES
     = 'Expires';
@@ -539,6 +554,7 @@ class Headers {
    * <code>
    *   Last-Modified: Tue, 15 Nov 1994 12:45:26 GMT
    * </code>
+   * @todo traduire
    */
   const RESPONSE_LAST_MODIFIED
     = 'Last-Modified';
@@ -549,6 +565,7 @@ class Headers {
    * <code>
    *   Location: http://www.w3.org/pub/WWW/People.html
    * </code>
+   * @todo traduire
    */
   const RESPONSE_LOCATION
     = 'Location';
@@ -560,6 +577,7 @@ class Headers {
    * <code>
    *   Pragma: no-cache
    * </code>
+   * @todo traduire
    */
   const RESPONSE_PRAGMA
   = 'Pragma';
@@ -570,6 +588,7 @@ class Headers {
    * <code>
    *   Proxy-Authenticate: Basic
    * </code>
+   * @todo traduire
    */
   const RESPONSE_PROXY_AUTHENTICATE
     = 'Proxy-Authenticate';
@@ -593,6 +612,7 @@ class Headers {
    * <code>
    *   Retry-After: 120
    * </code>
+   * @todo traduire
    */
   const RESPONSE_RETRY_AFTER
     = 'Retry-After';
@@ -603,6 +623,7 @@ class Headers {
    * <code>
    *   Server: Apache/1.3.27 (Unix) (Red-Hat/Linux)
    * </code>
+   * @todo traduire
    */
   const RESPONSE_SERVER
     = 'Server';
@@ -613,6 +634,7 @@ class Headers {
    * <code>
    *   Set-Cookie: UserID=JohnDoe; Max-Age=3600; Version=1
    * </code>
+   * @todo traduire
    */
   const RESPONSE_SET_COOKIE
     = 'Set-Cookie';
@@ -625,6 +647,7 @@ class Headers {
    * <code>
    *   Trailer: Max-Forwards
    * </code>
+   * @todo traduire
    */
   const RESPONSE_TRAILER
     = 'Trailer';
@@ -637,6 +660,7 @@ class Headers {
    * <code>
    *   Transfer-Encoding: chunked
    * </code>
+   * @todo traduire
    */
   const RESPONSE_TRANSFER_ENCODING
     = 'Transfer-Encoding';
@@ -649,6 +673,7 @@ class Headers {
    * <code>
    *   Vary: *
    * </code>
+   * @todo traduire
    */
   const RESPONSE_VARY
     = 'Vary';
@@ -659,6 +684,7 @@ class Headers {
    * <code>
    *   Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)
    * </code>
+   * @todo traduire
    */
   const RESPONSE_VIA
     = 'Via';
@@ -669,6 +695,7 @@ class Headers {
    * <code>
    *   Warning: 199 Miscellaneous warning
    * </code>
+   * @todo traduire
    */
   const RESPONSE_WARNING
     = 'Warning';
@@ -680,6 +707,7 @@ class Headers {
    * <code>
    *   WWW-Authenticate: Basic
    * </code>
+   * @todo traduire
    */
   const RESPONSE_WWW_AUTHENTICATE
     = 'WWW-Authenticate';
