@@ -305,7 +305,7 @@ class XhtmlTransitional {
     $class = null,
     $style = null)
   {
-    $link = $document->createElement('meta');
+    $link = $document->createElement('link');
 
     if(!is_null($charset))
     {
