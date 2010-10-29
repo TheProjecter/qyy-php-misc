@@ -705,17 +705,18 @@ class Headers {
 
   /**
    * Information : Acceptation du changement de protocole.<br/>
-   * The server understands and is willing to comply with the client's request,
-   * via the Upgrade message header field (section 14.42), for a change in the
-   * application protocol being used on this connection. The server will switch
-   * protocols to those defined by the response's Upgrade header field
-   * immediately after the empty line which terminates the 101 response.<br/>
+   * Le serveur comprend et accepte de se conformer à la demande du client,
+   * suivant le message du champ d'en-tête Upgrade (paragraphe 14.42 de la
+   * [RFC2616]), pour changer le protocole d'application à utiliser sur cette
+   * connexion. Le serveur va changer les protocoles au profit de ceux définis
+   * par le champ d’en-tête Upgrade de la réponse immédiatement après la ligne
+   * vide qui termine la réponse 101.<br/>
    * <br/>
-   * The protocol SHOULD be switched only when it is advantageous to do so. For
-   * example, switching to a newer version of HTTP is advantageous over older
-   * versions, and switching to a real-time, synchronous protocol might be
-   * advantageous when delivering resources that use such features.
-   * @todo Traduire
+   * Le protocole ne DEVRAIT être changé que si il est avantageux de le faire.
+   * Par exemple, passer à une version plus récente de HTTP est avantageux par
+   * rapport aux versions plus anciennes, et passer à un protocole synchrone en
+   * temps réel peut être avantageux lors de la livraison de ressources qui
+   * utilisent de telles caractéristiques.
    * @todo Links
    * @link http://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
    * @link http://tools.ietf.org/html/rfc2616
@@ -753,7 +754,6 @@ class Headers {
    * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.1
    */
   const STATUS_102 = 'Status: 102 Processing';
-
 
   // TODO: Le reste de la PHPDOC
   const STATUS_200 = 'Status: 200 OK';
