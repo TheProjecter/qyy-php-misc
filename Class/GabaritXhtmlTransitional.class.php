@@ -40,6 +40,7 @@
 // dépendances
 require_once 'Css2.class.php';
 require_once 'XhtmlTransitional.class.php';
+require_once 'Header.class.php';
 
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
 // http://pointbeing.net/weblog/2009/03/adding-a-doctype-declaration-to-a-domdocument-in-php.html
