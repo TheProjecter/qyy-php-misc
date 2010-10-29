@@ -37,8 +37,38 @@
  * termes.
  */
 
-require_once 'Class/Headers.class.php';
-require_once 'Class/Header.class.php';
-require_once 'Class/Css2.class.php';
-require_once 'Class/XhtmlTransitional.class.php';
-require_once 'Class/GabaritXhtmlTransitional.class.php';
+require_once 'XhtmlTransitional.class.php';
+
+/**
+ * Header
+ *
+ * @author Qyy
+ * @todo PHPDoc
+ */
+class Header {
+
+  private $champ;
+  private $valeur;
+
+  public function __construct($champ, $valeur)
+  {
+    $this->champ = $champ;
+    $this->valeur = $valeur;
+  }
+
+  public function GetXhtmlMetaHttpEquiv(DOMDocument $document)
+  {
+    return XhtmlTransitional::CreeMeta(
+      $document,     // DOMDocument
+      $this->valeur, // $content
+      null,          // $name
+      $this->champ   // $httpEquiv
+    );
+  }
+
+  public function RenvoiHeader($remplacer = true)
+  {
+    header($this->champ.': '.$this->valeur, $remplacer);
+  }
+
+}
