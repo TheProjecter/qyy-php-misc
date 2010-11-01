@@ -50,12 +50,22 @@ class Header {
   private $champ;
   private $valeur;
 
+  /**
+   *
+   * @param string $champ
+   * @param string $valeur
+   */
   public function __construct($champ, $valeur)
   {
     $this->champ = $champ;
     $this->valeur = $valeur;
   }
 
+  /**
+   *
+   * @param DOMDocument $document
+   * @return DOMElement
+   */
   public function GetXhtmlMetaHttpEquiv(DOMDocument $document)
   {
     return XhtmlTransitional::CreeMeta(
@@ -66,6 +76,10 @@ class Header {
     );
   }
 
+  /**
+   *
+   * @param boolean $remplacer
+   */
   public function RenvoiHeader($remplacer = true)
   {
     header($this->champ.': '.$this->valeur, $remplacer);
