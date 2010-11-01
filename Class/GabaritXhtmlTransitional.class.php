@@ -40,6 +40,7 @@
 // dépendances
 require_once 'Css2.class.php';
 require_once 'XhtmlTransitional.class.php';
+require_once 'Headers.class.php';
 require_once 'Header.class.php';
 
 // DOC: pointbeing.net - Adding a Doctype Declaration to a DOMDocument in PHP
@@ -59,6 +60,9 @@ require_once 'Header.class.php';
 // Voilà pourquoi on ne peut pas utiliser DOMDocument::validate() de merde :
 // Cette connerie de PHP pouris va chercher la DTD systématiquement créant un
 // DDOS chez le W3C qui bloque tout !
+
+// DOC: Add support for forcing DOM to validate a DOMDocument with a DTD
+// http://bugs.php.net/bug.php?id=48080
 
 // PROGRESS: Commentaires
 // PROGRESS: Gestion d'ajout des Styles
@@ -148,6 +152,127 @@ class GabaritXhtmlTransitional
 
   /**
    *
+   * @var array
+   */
+  private $entetes = array();
+
+  /**
+   *
+   * @var boolean
+   */
+  private $autoriseAjouteHeader = true;
+
+  private $autoriseAjouteHttpEquivMetas = true;
+
+  private $autoriseRenvoiHeaders = true;
+
+
+  public function GetAutoriseAjouteHeader()
+  {
+    return $this->autoriseAjouteHeader;
+  }
+
+  public function GetAutoriseAjouteHttpEquivMetas()
+  {
+    return $this->autoriseAjouteHttpEquivMetas;
+  }
+
+  public function GetAutoriseRenvoiHeaders()
+  {
+    return $this->autoriseRenvoiHeaders;
+  }
+
+  public function RenvoiGabarit(
+    $status = Headers::STATUS_200,
+    $renvoiHeaders = true,
+    $ajouteHttpEquivMetas = true
+  )
+  {
+    if($renvoiHeaders)
+    {
+      $this->RenvoiHeaders();
+    }
+
+    // TODO: STATUS
+
+    $retour = $this->__toString($ajouteHttpEquivMetas);
+
+    echo $retour;
+    return $retour;
+
+  }
+
+  public function RenvoiHeaders()
+  {
+    if ($this->autoriseRenvoiHeaders)
+    {
+      foreach ($this->entetes as $entete)
+      {
+        $entete->RenvoiHeader(false);
+      }
+
+      $this->autoriseRenvoiHeaders = false;
+      $this->autoriseAjouteHeader = false;
+      
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  public function AjouteHttpEquivMetas()
+  {
+    if($this->autoriseAjouteHttpEquivMetas)
+    {
+      foreach ($this->entetes as $entete)
+      {
+        $meta = $entete->GetXhtmlMetaHttpEquiv($this->document);
+        $this->elementHead->insertBefore($meta, $this->elementHead->firstChild);
+      }
+
+      $this->autoriseAjouteHttpEquivMetas = false;
+      
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  public function __toString($ajouteHttpEquivMetas = false)
+  {
+    if($this->autoriseAjouteHttpEquivMetas && $ajouteHttpEquivMetas)
+    {
+      AjouteHttpEquivMetas();
+    }
+
+    return $this->document->saveXML();
+  }
+
+  /**
+   * 
+   * @param string $champ
+   * @param string $valeur
+   * @return Header
+   */
+  public function AjouteHeader($champ, $valeur)
+  {
+    $entete = false;
+
+    if($this->autoriseAjouteHeader)
+    {
+      $entete = new Header($champ, $valeur);
+      $this->entetes[] = $entete;
+    }
+
+    return $entete;
+  }
+
+  /**
+   *
    * @param string $titre
    * @param string $langue
    */
@@ -168,6 +293,7 @@ class GabaritXhtmlTransitional
 
     $this->implementation = new DOMImplementation();
 
+
     $this->dtd =
       $this->implementation->createDocumentType
       (
@@ -176,6 +302,18 @@ class GabaritXhtmlTransitional
         'http://www.w3.org/TR/xhtml1/DTD/xhtml1-'
           .strtolower($typeDTD).'.dtd'              // systemId
       );
+
+    // DOC: La solution au problème de validation DOMDocument::validate()
+    // http://stackoverflow.com/questions/4062792/domdocumentvalidate-problem
+    $opts = array(
+      'http' => array(
+        'user_agent' => 'PHP libxml agent; '
+                        .'qyy-php-misc; GabaritXhtmlTransitional',
+      )
+    );
+
+    $context = stream_context_create($opts);
+    libxml_set_streams_context($context);
 
     $this->document = $this->implementation->createDocument('', '', $this->dtd);
 
