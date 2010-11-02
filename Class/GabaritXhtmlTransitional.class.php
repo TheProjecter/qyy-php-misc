@@ -242,15 +242,15 @@ class GabaritXhtmlTransitional
     }
   }
 
-  public function __toString($ajouteHttpEquivMetas = false)
-  {
-    if($this->autoriseAjouteHttpEquivMetas && $ajouteHttpEquivMetas)
-    {
-      AjouteHttpEquivMetas();
-    }
-
-    return $this->document->saveXML();
-  }
+//  public function __toString($ajouteHttpEquivMetas = false)
+//  {
+//    if($this->autoriseAjouteHttpEquivMetas && $ajouteHttpEquivMetas)
+//    {
+//      AjouteHttpEquivMetas();
+//    }
+//
+//    return $this->document->saveXML();
+//  }
 
   /**
    * 
@@ -917,17 +917,13 @@ class GabaritXhtmlTransitional
   {
     try
     {
-      // HACK: J'ai pas trouvé d'autre moyen pour importer du XML en chaine...
-      $simpleXmlElement = new SimpleXMLElement(
-                            XhtmlTransitional::ConvertieEntiteVersUnicode(
-                              $xhtml
-                            )
-                          );
-      $domElement = dom_import_simplexml($simpleXmlElement);
-
-      $domElement = $this->document->importNode($domElement, true);
-
-      $this->elementBody->appendChild($domElement);
+      $fragment = $this->document->createDocumentFragment();
+      $fragment->appendXml(
+        XhtmlTransitional::ConvertieEntiteVersUnicode(
+          $xhtml
+        )
+      );
+      $this->elementBody->appendChild($fragment);
 
       return true;
     }
