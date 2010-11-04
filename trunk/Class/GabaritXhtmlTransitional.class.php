@@ -910,6 +910,9 @@ class GabaritXhtmlTransitional
    * @param string $xhtml <p>
    * Le corp de la page au format XHTML Transitional valide
    * </p>
+   * @todo Faire une version avec validation et sans convertion
+   * @todo Faire une version avec DomDocument::loadHtml
+   * @link http://stackoverflow.com/q/4081090/492638
    * @return mixed true si l'opération s'est correctement exectué, une exception
    * dans le cas contraire.
    */
